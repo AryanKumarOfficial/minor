@@ -1,0 +1,392 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+    font-family: 'Source Sans 3', sans-serif;
+}
+
+/* navbar starts */
+
+/* top section starts */
+
+header {
+    background: #07294d;
+    color: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem 0;
+}
+
+/* top-section links */
+
+header .top-header-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .top-header-area ul {
+    display: flex;
+    list-style: none;
+
+}
+
+header .top-header-area ul li a {
+    display: flex;
+    align-items: center;
+    margin-left: 2rem;
+    position: relative;
+    transition: all .3s ease-in-out;
+    gap: 5px;
+}
+
+header .top-header-area ul li a:hover {
+    color: #b15110 !important;
+
+
+}
+
+
+
+header .top-header-area ul li a i {
+    color: #fff;
+    background-color: #b15110;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    transition: all 0.3s ease-in-out;
+    padding: 4px;
+
+}
+
+header .top-header-area ul li a {
+    color: #fff;
+    font-size: 1.2rem;
+
+}
+
+header .top-header-area ul li a:hover {
+    color: #fff;
+}
+
+/* top header socail links */
+
+header .top-header-socail {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 2rem;
+
+}
+
+header .top-header-socail ul {
+    display: flex;
+    flex-direction: flex-end;
+    list-style: none;
+}
+
+header .top-header-socail ul li {
+    margin-left: 2rem;
+}
+
+header .top-header-socail ul li a svg {
+    /* display: flex; */
+    color: #fff;
+    font-size: 1.2rem;
+    transition: all .75s ease-in-out;
+    /* width: 40px;
+    height: 40px; */
+}
+
+header .top-header-socail ul li a svg:hover {
+    transform: rotate3d(1, 2, 3, 360deg);
+
+}
+
+/* top section ends */
+
+/* logo section start */
+
+section.logo-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    padding: 1rem 0;
+}
+
+section.logo-section .logo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 0rem;
+    margin-top: 0rem;
+}
+
+section.logo-section .logo img {
+    height: 200px;
+}
+
+section.logo-section .logo h1 {
+    font-size: 3.5rem;
+    margin-left: 1rem;
+    text-align: center;
+    width: auto;
+}
+
+section.logo-section .logo h1 span {
+    color: #b15110;
+}
+
+section.logo-section .logo p {
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+
+section.logo-section .logo p span {
+    color: #b15110;
+}
+
+/* logo section links */
+
+section.logo-section .links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 2rem;
+
+}
+
+section.logo-section .links ul {
+    display: flex;
+    flex-direction: column;
+    flex-direction: flex-end;
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+section.logo-section .links ul li {
+    margin: 5px;
+    padding: 5px;
+    max-width: 216px;
+    border-radius: 5px;
+    text-align: center;
+    width: 300px;
+    transition: all 0.3s ease-in-out;
+}
+
+section.logo-section .links ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    font-size: 20px;
+    padding: 2px;
+    font-weight: bold;
+}
+
+section.logo-section .links ul li:hover {
+    transform: scale(1.1);
+}
+
+/* main nav starts */
+
+nav {
+    display: flex;
+    background: #07294d;
+    color: white;
+}
+
+nav.navbar ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100vw;
+}
+
+nav.navbar ul li {
+    text-decoration: none;
+    list-style: none;
+    /* border-right: 6px solid #b15110; */
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* vertical line after each li */
+
+
+
+nav.navbar ul li:not(:last-child):after {
+    content: '';
+    width: 0;
+    position: relative;
+    border: 1px solid white;
+    top: 0;
+    /* left: 100px; */
+
+}
+
+nav.navbar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+
+nav.navbar ul li a:hover {
+    color: #b15110;
+}
+
+nav.navbar ul li a {
+    font-size: x-large;
+    margin-right: 5px;
+    color: white;
+    align-items: center;
+    position: relative;
+    /* margin: 10px 2px; */
+
+}
+
+nav.navbar ul li a :hover {
+    color: #b15110;
+}
+
+/* main nav ends */
+/* navbar ends */
+
+/*  main content */
+
+/* back poster */
+
+section#main .poster img {
+    height: 400px;
+    width: 100%;
+}
+
+/* back poster ends */
+
+/* quick link anime starts */
+
+section#main .anime {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 1rem 0;
+    gap: 2.5rem;
+}
+
+section#main .anime .box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 1rem 0;
+    width: 200px;
+    height: 200px;
+    background: #07294d;
+    color: #fff;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+section#main .anime .box:hover {
+    transform: translateY(-10px);
+}
+
+section#main .anime .box img {
+    height: 100px;
+    width: 100px;
+}
+
+section#main .anime .box h3 a {
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+/* anime section ends */
+
+/* from the desk of admin */
+
+section#main .admin-desk {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+    margin: 1rem 0;
+    padding: 1rem 0;
+    gap: 2.5rem;
+}
+
+section#main .admin-desk .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 1rem 2rem;
+}
+
+section#main .admin-desk .content h3 {
+    font-size: 2.5rem;
+    color: #07294d;
+    margin-bottom: 1rem;
+    text-align: left;
+    width: 100%;
+
+}
+
+section#main .admin-desk .content p {
+    font-size: 1rem;
+    color: #07294d;
+    margin-bottom: 1rem;
+    text-align: justify;
+
+}
+
+section#main .admin-desk .img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 1rem 0;
+    gap: 2.5rem;
+
+}
+
+section#main .admin-desk .img img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin: 1rem 0;
+}
+
+/* main ends */
+
+/* footer starts */
+footer {
+    height: 300px;
+}
+
+footer .footer {
+    background-image: url(../../public/images/footer-bg.jpg);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
+    position: relative;
+}
+
+/* utilities */
+
+a {
+    text-decoration: none;
+}
