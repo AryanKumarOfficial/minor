@@ -110,8 +110,6 @@ const NavbarComponent = () => {
             <ul>
                 <li>
                     <a href="#"><AiFillHome style={{
-                        position: 'relative',
-                        top: '5px',
                     }} /></a>
                 </li>
                 <li><a href="#">About Us</a></li>

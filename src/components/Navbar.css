@@ -212,7 +212,7 @@ nav.navbar ul li {
     text-decoration: none;
     list-style: none;
     /* border-right: 6px solid #b15110; */
-    padding: 10px;
+    padding: 5px 10px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -220,14 +220,20 @@ nav.navbar ul li {
 
 
 
-nav.navbar ul li:not(:last-child):after {
+nav.navbar ul li:not(:first-child)::before {
     content: '';
     width: 0;
     position: relative;
-    border: 1px solid white;
+    border: 2px solid white;
     top: 0;
+    bottom: 0;
+    right: 2px;
     /* left: 100px; */
 
+}
+
+nav.navbar ul li:first-child::after {
+    border: none;
 }
 
 nav.navbar ul li a {
@@ -371,19 +377,72 @@ section#main .admin-desk .img img {
 /* main ends */
 
 /* footer starts */
-footer {
-    height: 300px;
+
+footer.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    position: absolute;
+    width: 100vw;
 }
 
-footer .footer {
-    background-image: url(../../public/images/footer-bg.jpg);
-    background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: cover;
-    background-attachment: fixed;
-    height: 100%;
-    position: relative;
+footer.footer::before {
+    content: "";
+    background: url("../../public/images/footer-bg.jpg") no-repeat center center/cover;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 300px;
+    width: 100%;
+    z-index: -1;
+    opacity: 0.89;
 }
+
+footer.footer .wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    padding: 1rem 0;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+
+}
+
+footer.footer .quick {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 1rem;
+    padding: 1rem 1rem;
+    gap: 1rem;
+    text-align: center;
+}
+
+footer.footer .quick h5 {
+    font-size: 1.5rem;
+    font-weight: 550;
+    margin-bottom: 1rem;
+    color: #b15110;
+}
+
+footer.footer .quick ul li {
+    list-style: none;
+}
+
+footer.footer .quick ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 550;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+/*
+*/
 
 /* utilities */
 
