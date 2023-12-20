@@ -398,7 +398,7 @@ footer.footer::before {
     height: 300px;
     width: 100%;
     z-index: -1;
-    opacity: 0.89;
+    opacity: 1;
 }
 
 footer.footer .wrapper {
