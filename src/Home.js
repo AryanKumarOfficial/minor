@@ -3,7 +3,7 @@ import './Home.css';
 
 const Home = () => {
   return (
-    <section id="main" className='min-h-screen pb-24'>
+    <section id="main" className='min-h-screen'>
       <div className="poster">
         <img src="./images/anime-bg.jpg" alt="poster" />
       </div>

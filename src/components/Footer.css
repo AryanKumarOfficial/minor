@@ -1,0 +1,144 @@
+footer.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    position: absolute;
+    width: 100%;
+}
+
+footer.footer::before {
+    content: "";
+    background: url("../../public/images/footer-bg.jpg") no-repeat center center/cover;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 300px;
+    width: 100%;
+    z-index: -1;
+    opacity: 1;
+}
+
+footer.footer .wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    padding: 1rem 0;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+
+}
+
+footer.footer .quick,
+footer.footer .logo-section,
+footer.footer .contact {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 1rem;
+    padding: 1rem 1rem;
+    gap: 1rem;
+    text-align: center;
+}
+
+footer.footer .logo-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* margin: 1rem 1rem;
+    padding: 1rem 1rem; */
+    gap: 1rem;
+    text-align: center;
+}
+
+footer.footer .logo-section p {
+    font-size: 1rem;
+    font-weight: 550;
+    /* margin-bottom: 1rem; */
+    color: #b15110;
+}
+
+footer.footer .logo-section img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+footer.footer .quick h5 {
+    font-size: 1.5rem;
+    font-weight: 550;
+    /* margin-bottom: 1rem; */
+    color: #b15110;
+    text-align: left;
+}
+
+footer.footer .quick ul li {
+    list-style: none;
+    text-align: left;
+}
+
+footer.footer .quick ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 550;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+footer.footer .quick ul li a:hover {
+    color: #b15110;
+}
+
+footer.footer .contact h5 {
+    font-size: 1.5rem;
+    font-weight: 550;
+    /* margin-bottom: 1rem; */
+    color: #b15110;
+    text-align: left;
+}
+
+footer.footer .contact ul li {
+    list-style: none;
+    text-align: left;
+}
+
+footer.footer .contact ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 550;
+    padding: 0px;
+    transition: all 0.3s ease-in-out;
+}
+
+footer.footer .contact ul li a:hover {
+    color: #b15110;
+}
+
+footer.footer .contact ul li a .icon {
+    display: flex;
+    gap: 2px;
+    justify-content: start;
+    align-items: center;
+    color: #fff;
+    font-size: 1.2rem;
+    margin-right: 5px;
+    height: 30px;
+}
+
+footer.footer .contact ul li a>span {
+    color: #c0cade;
+    font-size: 1.2rem;
+    font-weight: 550;
+    padding: 0px 25px;
+    transition: all 0.3s ease-in-out;
+
+}
+
+footer.footer .contact ul li a:hover>span {
+    color: #b15110;
+}
