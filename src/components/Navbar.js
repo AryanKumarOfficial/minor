@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { } from 'react';
 import './Navbar.css';
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa6";
@@ -126,11 +126,11 @@ const NavbarComponent = () => {
                 <li>
                     <a href="/"><AiFillHome /></a>
                 </li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="/">About Us</a></li>
+                <li><a href="/">Contact Us</a></li>
+                <li><a href="/">Services</a></li>
+                <li><a href="/">Privacy Policy</a></li>
+                <li><a href="/">Terms & Conditions</a></li>
             </ul>
         </nav>
     );

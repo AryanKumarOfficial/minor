@@ -1,5 +1,6 @@
 import React from 'react';
 import './Home.css';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
@@ -8,7 +9,7 @@ const Home = () => {
         <img src="./images/anime-bg.jpg" alt="poster" />
       </div>
       <div className="anime">
-        <a href="#">
+        <Link to="/">
           <div className="box">
             <img
               src="./images/department.png"
@@ -17,9 +18,9 @@ const Home = () => {
             />
             <h3>Departments</h3>
           </div>
-        </a>
+        </Link>
 
-        <a href="#">
+        <a href="/">
           <div className="box">
             <img
               src="./images/hospital.png"
@@ -29,20 +30,20 @@ const Home = () => {
             <h3>Find Hospital</h3>
           </div>
         </a>
-        <a href="#">
+        <a href="/">
           <div className="box">
             <img src="./images/bed.png" alt="" />
             <h3>Book a Bed</h3>
           </div>
         </a>
-        <a href="#">
+        <a href="/">
           <div className="box">
             <img src="./images/appointment.png" alt="" />
             <h3>View Appointment</h3>
           </div>
         </a>
 
-        <a href="#">
+        <a href="/">
           <div className="box">
             <img
               src="./images/app.webp"
@@ -53,7 +54,7 @@ const Home = () => {
           </div>
         </a>
 
-        <a href="#">
+        <a href="/">
           <div className="box">
             <img
               src="./images/faq.png"

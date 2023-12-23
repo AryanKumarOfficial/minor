@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './Register.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
+import toast, { ToastBar, Toaster } from 'react-hot-toast';
 
 function UserRegistration() {
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [eyeIcon, setEyeIcon] = useState(false); // [1,2,3,4,5,6,7,8,9,10]
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -47,7 +49,7 @@ function UserRegistration() {
         e.preventDefault();
         console.log(form);
         const { fname, lname, email, password } = form;
-        const res = await fetch(`/user/register`, {
+        const res = await fetch(`${process.env.REACT_APP_API_PORT}/user/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -60,13 +62,8 @@ function UserRegistration() {
             })
         });
         const data = await res.json();
-        if (data.status === 422 || !data) {
-            window.alert("Invalid Registration");
-            console.log("Invalid Registration");
-        }
-        else {
-            window.alert("Registration Successful");
-            console.log("Registration Successful");
+        if (data.success) {
+            toast.success(data.msg);
             setForm({
                 fname: '',
                 lname: '',
@@ -74,6 +71,12 @@ function UserRegistration() {
                 password: '',
                 cpassword: ''
             });
+            setTimeout(() => {
+                navigate('/user/login');
+            }, 5000);
+        }
+        else {
+            toast.error(data.msg);
         }
     }
 
@@ -133,6 +136,17 @@ function UserRegistration() {
                         Hospital?
                     </Link>
                 </div>
+                <Toaster>
+                    {(t) => (
+                        <ToastBar
+                            toast={t}
+                            style={{
+                                ...t.style,
+                                animation: t.visible ? 'custom-enter 1s ease' : 'custom-exit 1s ease',
+                            }}
+                        />
+                    )}
+                </Toaster>;
             </main>
         </>
     );
