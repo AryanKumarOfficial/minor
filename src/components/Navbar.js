@@ -87,9 +87,9 @@ const LogoSectionComponent = () => {
             </div>
             <div className="links">
                 <ul>
-                    <li style={{ backgroundColor: '#979b16' }}><a href="#">User Login</a></li>
+                    <li style={{ backgroundColor: '#979b16' }}><a href="/user/register">User Login</a></li>
                     <li style={{ backgroundColor: '#4fc0e8' }}>
-                        <a href="#">Hospital Login</a>
+                        <a href="user/login">Hospital Login</a>
                     </li>
                 </ul>
             </div>
