@@ -64,7 +64,7 @@ const Home = () => {
           </div>
         </a>
       </div>
-      <div className="admin-desk">
+      <div className="admin-desk md:flex-wrap">
         <div className="img">
           <img src="/images/logo.png" alt="" />
         </div>

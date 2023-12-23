@@ -7,17 +7,10 @@ import { AiFillHome } from "react-icons/ai";
 import { FaLock } from "react-icons/fa6";
 import { PiPhoneCallFill } from "react-icons/pi";
 import { Link } from 'react-router-dom';
+import { TiThMenu } from "react-icons/ti";
 
 
 const HeaderComponent = () => {
-    const [topHover, setTopHover] = useState(false)
-    const topHeaderHover = {
-        color: ' #b15110',
-        fontSize: 'x-large',
-        marginRight: '5px',
-        alignItems: 'center',
-        position: 'relative'
-    }
     return (
         <header>
             {/* top section starts */}
@@ -105,12 +98,33 @@ const LogoSectionComponent = () => {
 };
 
 const NavbarComponent = () => {
+    const handleToggle = () => {
+        const nav = document.querySelector(".navbar ul");
+        console.log(nav);
+        nav.classList.toggle("active");
+
+
+    };
     return (
         <nav className="navbar">
+            <TiThMenu
+                className={`humburger`}
+                style={{
+                    color: '#fff',
+                    fontSize: '2rem',
+                    marginRight: '5px',
+                    marginLeft: '5px',
+                    padding: '5px',
+                    alignItems: 'center',
+                }}
+                onClick={() => {
+                    handleToggle();
+                }}
+                size={40}
+            />
             <ul>
                 <li>
-                    <a href="#"><AiFillHome style={{
-                    }} /></a>
+                    <a href="/"><AiFillHome /></a>
                 </li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">Contact Us</a></li>

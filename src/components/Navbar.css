@@ -33,12 +33,14 @@ header .top-header-area {
 
 header .top-header-area ul {
     display: flex;
+    flex-wrap: wrap;
     list-style: none;
 
 }
 
 header .top-header-area ul li a {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     margin-left: 2rem;
     position: relative;
@@ -81,12 +83,15 @@ header .top-header-socail {
     justify-content: flex-end;
     align-items: center;
     margin-right: 2rem;
-
+    flex-wrap: wrap;
 }
 
 header .top-header-socail ul {
     display: flex;
     flex-direction: flex-end;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     list-style: none;
 }
 
@@ -122,8 +127,16 @@ section.logo-section .logo {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    flex-wrap: wrap;
     margin-left: 0rem;
     margin-top: 0rem;
+}
+
+section.logo-section .logo a{
+    text-decoration: none;
+    display: flex;  
+    flex-wrap: wrap;    
+    align-items: center;
 }
 
 section.logo-section .logo img {
@@ -155,6 +168,7 @@ section.logo-section .logo p span {
 section.logo-section .links {
     display: flex;
     justify-content: flex-end;
+    flex-wrap: wrap;
     align-items: center;
     margin-right: 2rem;
 
@@ -162,6 +176,7 @@ section.logo-section .links {
 
 section.logo-section .links ul {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     flex-direction: flex-end;
     list-style: none;
@@ -195,17 +210,25 @@ section.logo-section .links ul li:hover {
 
 nav {
     display: flex;
+    flex-wrap: wrap;
     background: #07294d;
     color: white;
+
+}
+
+nav.navbar svg.humburger {
+    display: none;
 }
 
 nav.navbar ul {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     text-align: center;
     width: 100vw;
+    transition: all 0.3s ease-in-out;
 }
 
 nav.navbar ul li {
@@ -264,13 +287,165 @@ nav.navbar ul li a :hover {
     color: #b15110;
 }
 
-/* main nav ends */
-/* navbar ends */
+/* responsive */
+
+@media only screen and (max-width: 768px) {
+
+    header {
+        display: none;
+    }
+
+    section.logo-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+
+    section.logo-section .logo {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    section.logo-section .logo img {
+        position: relative;
+        margin: 0 auto;
+        height: 100px;
+    }
+
+    section.logo-section .logo h1 {
+        font-size: 2rem;
+        margin-left: 1rem;
+        text-align: center;
+        width: auto;
+    }
+
+    section.logo-section .logo h1 span {
+        color: #b15110;
+    }
+
+    section.logo-section .logo p {
+        font-size: 1rem;
+        margin-left: 1rem;
+    }
+
+    section.logo-section .logo p span {
+        color: #b15110;
+    }
+
+    section.logo-section .links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-right: 0rem;
+        /* margin-right: 2rem; */
+
+    }
+
+    section.logo-section .links ul {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        flex-direction: flex-end;
+        list-style: none;
+        margin-bottom: 1rem;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    section.logo-section .links ul li {
+        margin: 5px;
+        padding: 5px;
+        max-width: 216px;
+        border-radius: 5px;
+        text-align: center;
+        width: 12rem;
+
+        transition: all 0.3s ease-in-out;
+    }
+
+    section.logo-section .links ul li a {
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+        font-size: 20px;
+        padding: 2px;
+        font-weight: bold;
+    }
+
+    section.logo-section .links ul li:hover {
+        transform: scale(1.1);
+    }
+
+    nav.navbar {
+        display: flex;
+        flex-wrap: wrap;
+        background: #57294d;
+        color: white;
+    }
+
+    nav.navbar svg.humburger {
+        display: block;
+    }
 
 
+    nav.navbar ul {
+        display: none;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: left;
+        align-items: center;
+        text-align: left;
+        width: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
 
-/*
-*/
+    nav.navbar ul.active {
+        display: flex;
+        opacity: 1;
+        transition: opacity 1s ease-in-out;
+    }
 
-/* utilities */
+    nav.navbar ul li {
+        border: none;
+        width: 100%;
+        /* margin: 0; */
+        /* padding: 0; */
+    }
 
+    nav.navbar ul li:not(:first-child)::before {
+        content: '';
+        width: 0;
+        position: relative;
+        border: none;
+        top: 0;
+        bottom: 0;
+        right: 2px;
+        left: -2px;
+        /* left: 100px; */
+
+    }
+
+    nav.navbar ul li:first-child {
+        margin-bottom: -20px;
+        padding-left: 18px;
+    }
+
+    nav.navbar ul li a {
+        font-size: 1.2rem;
+        margin-right: 5px;
+        color: white;
+        align-items: center;
+        position: relative;
+        /* margin: 10px 2px; */
+
+    }
+
+    nav.navbar ul li a :hover {
+        color: #b15110;
+    }
+
+}
