@@ -12,6 +12,7 @@ import UsrLogin from './components/client/Login'
 import UsrDashboard from './components/client/Dashboard'
 import AuthorizeUsr from './middleware/auth'
 import LoadingBar from 'react-top-loading-bar'
+import { UserProvider } from './context/client/UserProvider'
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
@@ -30,24 +31,26 @@ const Root = () => {
   return (
     <>
       <BrowserRouter>
-        <LoadingBar
-          color='#f11946'
-          height={3}
-          progress={progress}
-          onLoaderFinished={() => setProgress(0)}
-        />
-        <HeaderComponent />
-        <LogoSectionComponent />
-        <NavbarComponent />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/user/register" element={<UsrReg />} />
-          <Route path="/user/login" element={<UsrLogin />} />
-          <Route path="/user/dashboard" element={<AuthorizeUsr><UsrDashboard /></AuthorizeUsr>} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-        <Footer />
+        <UserProvider>
+          <LoadingBar
+            color='#f11946'
+            height={3}
+            progress={progress}
+            onLoaderFinished={() => setProgress(0)}
+          />
+          <HeaderComponent />
+          <LogoSectionComponent />
+          <NavbarComponent />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/user/register" element={<UsrReg />} />
+            <Route path="/user/login" element={<UsrLogin />} />
+            <Route path="/user/dashboard" element={<AuthorizeUsr><UsrDashboard /></AuthorizeUsr>} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+          <Footer />
+        </UserProvider>
       </BrowserRouter>
     </>
   );
