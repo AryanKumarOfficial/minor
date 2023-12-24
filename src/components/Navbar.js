@@ -31,7 +31,7 @@ const HeaderComponent = () => {
                         </Link>
                     </li>
                     <li>
-                        <a href="tel:101">
+                        <Link to="tel:101">
                             <PiPhoneCallFill
                                 style={{
                                     color: '#fff',
@@ -42,7 +42,7 @@ const HeaderComponent = () => {
                                     padding: '4px'
                                 }} />
                             <span>Helpline:101</span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>
@@ -87,9 +87,9 @@ const LogoSectionComponent = () => {
             </div>
             <div className="links">
                 <ul>
-                    <li style={{ backgroundColor: '#979b16' }}><a href="/user/register">User Login</a></li>
+                    <li style={{ backgroundColor: '#979b16' }}><Link to="/user/register">User Login</Link></li>
                     <li style={{ backgroundColor: '#4fc0e8' }}>
-                        <a href="user/login">Hospital Login</a>
+                        <Link to="user/login">Hospital Login</Link>
                     </li>
                 </ul>
             </div>
@@ -124,13 +124,13 @@ const NavbarComponent = () => {
             />
             <ul>
                 <li>
-                    <a href="/"><AiFillHome /></a>
+                    <Link to="/"><AiFillHome /></Link>
                 </li>
-                <li><a href="/">About Us</a></li>
-                <li><a href="/">Contact Us</a></li>
-                <li><a href="/">Services</a></li>
-                <li><a href="/">Privacy Policy</a></li>
-                <li><a href="/">Terms & Conditions</a></li>
+                <li><Link to="/about">About Us</Link></li>
+                <li><Link to="/contact">Contact Us</Link></li>
+                <li><Link to="/services">Services</Link></li>
+                <li><Link to="/privacy">Privacy Policy</Link></li>
+                <li><Link to="/terms">Terms & Conditions</Link></li>
             </ul>
         </nav>
     );
