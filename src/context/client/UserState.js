@@ -103,6 +103,7 @@ const UserProvider = (props) => {
                     Authorization: `Bearer ${authToken}`,
                 },
             });
+
             const data = await res.json();
             if (data.success) {
                 toast.success('User logged out successfully');
@@ -111,14 +112,32 @@ const UserProvider = (props) => {
                     data: null,
                     error: null,
                 });
+                localStorage.removeItem('token');
+                setTimeout(() => {
+                    navigate('/user/login', {
+                        replace: true,
+                    });
+                }, 2000);
+            }
+            else {
+                toast.error(data.msg);
             }
 
         } catch (error) {
-            setUser({
-                ...user,
-                data: null,
-                error: error.message,
-            });
+            if (error.name === 'JsonWebTokenError') {
+                // Handle invalid token error (e.g., redirect to login)
+                localStorage.removeItem('token');
+                navigate('/user/login', {
+                    replace: true,
+                });
+            } else {
+                // Handle other errors
+                setUser({
+                    ...user,
+                    data: null,
+                    error: error.message || 'An error occurred during logout',
+                });
+            }
         }
     };
 

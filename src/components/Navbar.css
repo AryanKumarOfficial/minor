@@ -132,10 +132,10 @@ section.logo-section .logo {
     margin-top: 0rem;
 }
 
-section.logo-section .logo a{
+section.logo-section .logo a {
     text-decoration: none;
-    display: flex;  
-    flex-wrap: wrap;    
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
 }
 
@@ -286,6 +286,24 @@ nav.navbar ul li a {
 nav.navbar ul li a :hover {
     color: #b15110;
 }
+
+nav.navbar ul li button {
+    background: #b15110;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+nav.navbar ul li button:hover {
+    background: #fff;
+    color: #b15110;
+}
+
+/* main nav ends */
 
 /* responsive */
 
