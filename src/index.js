@@ -8,6 +8,7 @@ import Home from './Home';
 import { HeaderComponent, LogoSectionComponent, NavbarComponent } from './components/Navbar';
 import Footer from './components/Footer';
 import UsrReg from './components/client/Register'
+import UsrLogin from './components/client/Login'
 import LoadingBar from 'react-top-loading-bar'
 
 const container = document.getElementById("root");
@@ -40,6 +41,7 @@ const Root = () => {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/user/register" element={<UsrReg />} />
+          <Route path="/user/login" element={<UsrLogin />} />
           <Route path="/about" element={<About />} />
         </Routes>
         <Footer />
