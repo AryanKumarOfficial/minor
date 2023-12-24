@@ -4,8 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
 import toast, { ToastBar, Toaster } from 'react-hot-toast';
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
+import { useContext } from 'react';
+import UserContext from '../../context/client/UserContext';
 
 function UserLogin() {
+    const { user, loginUser, getUser } = useContext(UserContext);
+
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [eyeIcon, setEyeIcon] = useState(false); // [1,2,3,4,5,6,7,8,9,10]
@@ -38,27 +42,12 @@ function UserLogin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(form);
-        const { email, password } = form;
-        const res = await fetch(`${process.env.REACT_APP_API_PORT}/user/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email,
-                password
-            })
-        });
-        const data = await res.json();
-        if (data.success) {
-            toast.success(data.msg);
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
-            navigate('/user/dashboard', { replace: true });
-        }
-        else {
-            toast.error(data.msg);
-        }
+        const formData = {
+            email: form.email,
+            password: form.password,
+        };
+        await loginUser(formData);
+
     }
 
     return (

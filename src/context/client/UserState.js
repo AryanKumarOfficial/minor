@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import UserContext from './UserContext';
+import toast, { ToastBar, Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+
 
 const UserProvider = (props) => {
-    const host = `https://minor-backend-n2nq.onrender.com`;
+    const navigate = useNavigate();
+    // const host = `https://minor-backend-n2nq.onrender.com`;
+    const host = `http://localhost:5000`;
     const authToken = localStorage.getItem('token');
 
     // Define initial state
@@ -18,7 +23,7 @@ const UserProvider = (props) => {
 
     const registerUser = async (userData) => {
         try {
-            const res = await fetch(`${host}/api/auth/register`, {
+            const res = await fetch(`${host}/user/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,11 +31,17 @@ const UserProvider = (props) => {
                 body: JSON.stringify(userData),
             });
             const data = await res.json();
-            setUser({
-                ...user,
-                data,
-                error: null,
-            });
+            if (data.success) {
+                toast.success('User registered successfully');
+                setUser({
+                    ...user,
+                    data,
+                    error: null,
+                });
+            }
+            else {
+                toast.error(data.msg);
+            }
         } catch (error) {
             setUser({
                 ...user,
@@ -42,7 +53,7 @@ const UserProvider = (props) => {
 
     const loginUser = async (userData) => {
         try {
-            const res = await fetch(`${host}/api/auth/login`, {
+            const res = await fetch(`${host}/user/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,11 +61,24 @@ const UserProvider = (props) => {
                 body: JSON.stringify(userData),
             });
             const data = await res.json();
-            setUser({
-                ...user,
-                data,
-                error: null,
-            });
+            if (data.success) {
+                toast.success('User logged in successfully');
+                setUser({
+                    ...user,
+                    data,
+                    error: null,
+                });
+                localStorage.setItem('token', data.token);
+                setTimeout(() => {
+                    navigate('/user/dashboard', {
+                        replace: true,
+
+                    });
+                }, 2000);
+            }
+            else {
+                toast.error(data.msg);
+            }
         } catch (error) {
             setUser({
                 ...user,
@@ -66,7 +90,7 @@ const UserProvider = (props) => {
 
     const logoutUser = async () => {
         try {
-            const res = await fetch(`${host}/api/auth/logout`, {
+            const res = await fetch(`${host}/user/logout`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,11 +98,15 @@ const UserProvider = (props) => {
                 },
             });
             const data = await res.json();
-            setUser({
-                ...user,
-                data,
-                error: null,
-            });
+            if (data.success) {
+                toast.success('User logged out successfully');
+                setUser({
+                    ...user,
+                    data: null,
+                    error: null,
+                });
+            }
+
         } catch (error) {
             setUser({
                 ...user,
@@ -90,7 +118,7 @@ const UserProvider = (props) => {
 
     const getUser = async () => {
         try {
-            const res = await fetch(`${host}/api/auth/user`, {
+            const res = await fetch(`${host}/user/get`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -103,6 +131,7 @@ const UserProvider = (props) => {
                 data,
                 error: null,
             });
+
         } catch (error) {
             setUser({
                 ...user,
