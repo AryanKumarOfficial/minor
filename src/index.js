@@ -10,7 +10,8 @@ import Footer from './components/Footer';
 import UsrReg from './components/client/Register'
 import UsrLogin from './components/client/Login'
 import UsrDashboard from './components/client/Dashboard'
-import AuthorizeUsr from './middleware/auth'
+import AuthorizeUsr from './middleware/auth';
+import UnauthorizeUsr from './middleware/unauth';
 import LoadingBar from 'react-top-loading-bar'
 import { UserProvider } from './context/client/UserProvider'
 
@@ -44,8 +45,8 @@ const Root = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/user/register" element={<UsrReg />} />
-            <Route path="/user/login" element={<UsrLogin />} />
+            <Route path="/user/register" element={<UnauthorizeUsr><UsrReg /></UnauthorizeUsr>} />
+            <Route path="/user/login" element={<UnauthorizeUsr><UsrLogin /></UnauthorizeUsr>} />
             <Route path="/user/dashboard" element={<AuthorizeUsr><UsrDashboard /></AuthorizeUsr>} />
             <Route path="/about" element={<About />} />
           </Routes>

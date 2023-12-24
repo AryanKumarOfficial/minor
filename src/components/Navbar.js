@@ -82,14 +82,14 @@ const LogoSectionComponent = () => {
     return (
         <section className="logo-section">
             <div className="logo">
-                <Link to={'/'}>
+                <Link to={'/'} redirect={true}>
                     <img src={'/images/logo.png'} alt="logo" />
                     <h1>Hospital Management System</h1>
                 </Link>
             </div>
             <div className="links">
                 <ul>
-                    <li style={{ backgroundColor: '#979b16' }}><Link to="/user/register">User Login</Link></li>
+                    <li style={{ backgroundColor: '#979b16' }}><Link to="/user/register" redirect={true}>User Login</Link></li>
                     <li style={{ backgroundColor: '#4fc0e8' }}>
                         <Link to="user/login">Hospital Login</Link>
                     </li>
@@ -136,7 +136,7 @@ const NavbarComponent = () => {
                 <li><Link to="/terms">Terms & Conditions</Link></li>
                 <li className='before:!border-none absolute right-0'>
                     <button onClick={logoutUser} className='flex gap-2 items-center'>
-                        <MdLogout size={25}/>
+                        <MdLogout size={25} />
                         Logout
                     </button>
                 </li>
