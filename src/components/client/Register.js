@@ -3,8 +3,11 @@ import './Register.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
 import toast, { ToastBar, Toaster } from 'react-hot-toast';
+import { useContext } from 'react';
+import UserContext from '../../context/client/UserContext';
 
 function UserRegistration() {
+    const { registerUser } = useContext(UserContext);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [eyeIcon, setEyeIcon] = useState(false); // [1,2,3,4,5,6,7,8,9,10]
@@ -26,7 +29,9 @@ function UserRegistration() {
             form.email.length > 0 &&
             form.password.length >= 6 &&
             form.cpassword.length >= 6 &&
-            form.password === form.cpassword
+            form.password === form.cpassword &&
+            form.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
+                
         ) {
             setDisabled(false);
         }
@@ -48,36 +53,13 @@ function UserRegistration() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(form);
-        const { fname, lname, email, password } = form;
-        const res = await fetch(`${process.env.REACT_APP_API_PORT}/user/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                fname,
-                lname,
-                email,
-                password
-            })
-        });
-        const data = await res.json();
-        if (data.success) {
-            toast.success(data.msg);
-            setForm({
-                fname: '',
-                lname: '',
-                email: '',
-                password: '',
-                cpassword: ''
-            });
-            setTimeout(() => {
-                navigate('/user/login');
-            }, 5000);
-        }
-        else {
-            toast.error(data.msg);
-        }
+        const formData = {
+            fname: form.fname,
+            lname: form.lname,
+            email: form.email,
+            password: form.password,
+        };
+        await registerUser(formData);
     }
 
     return (
@@ -93,7 +75,7 @@ function UserRegistration() {
                             <input type="text" name="lname" placeholder="Last Name" required onChange={handleChange} value={form.lname} />
                         </div>
                         <div className="form-group">
-                            <input type="text" name="email" placeholder="Email" required onChange={handleChange} value={form.email} />
+                            <input type="email" name="email" placeholder="Email" required onChange={handleChange} value={form.email} />
                         </div>
                         <div className="form-group">
                             <input type={`${showPassword ? "text" : "password"}`} name="password" placeholder="Password" required onChange={handleChange} value={form.password} />

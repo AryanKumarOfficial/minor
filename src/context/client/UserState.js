@@ -38,6 +38,12 @@ const UserProvider = (props) => {
                     data,
                     error: null,
                 });
+                setTimeout(() => {
+                    navigate('/user/login', {
+                        replace: true,
+
+                    });
+                }, 2000);
             }
             else {
                 toast.error(data.msg);

@@ -8,9 +8,8 @@ import { useContext } from 'react';
 import UserContext from '../../context/client/UserContext';
 
 function UserLogin() {
-    const { user, loginUser, getUser } = useContext(UserContext);
+    const { loginUser } = useContext(UserContext);
 
-    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [eyeIcon, setEyeIcon] = useState(false); // [1,2,3,4,5,6,7,8,9,10]
     const [form, setForm] = useState({
