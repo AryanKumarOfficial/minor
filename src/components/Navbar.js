@@ -17,7 +17,7 @@ const HeaderComponent = () => {
             <div className="top-header-area">
                 <ul>
                     <li>
-                        <Link to="/hospital">
+                        <Link to="/hospital" >
                             <FaLock
                                 style={{
                                     color: '#fff',

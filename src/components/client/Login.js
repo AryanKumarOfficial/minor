@@ -52,13 +52,9 @@ function UserLogin() {
         const data = await res.json();
         if (data.success) {
             toast.success(data.msg);
-            setForm({
-                email: '',
-                password: '',
-            });
-            setTimeout(() => {
-                navigate('/user/dashboard');
-            }, 5000);
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            navigate('/user/dashboard', { replace: true });
         }
         else {
             toast.error(data.msg);
