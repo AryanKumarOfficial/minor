@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
@@ -10,7 +10,8 @@ import Footer from './components/Footer';
 import UsrReg from './components/client/Register'
 import LoadingBar from 'react-top-loading-bar'
 
-
+const container = document.getElementById("root");
+const root = ReactDOM.createRoot(container);
 
 const Root = () => {
   const [progress, setProgress] = React.useState(0)
@@ -46,10 +47,8 @@ const Root = () => {
     </>
   );
 }
-ReactDOM.render(
-  <Root />,
-  document.getElementById('root')
-);
+root.render(<Root />);
+
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
