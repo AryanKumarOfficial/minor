@@ -126,8 +126,19 @@ const UserProvider = (props) => {
                     });
                 }, 2000);
             }
+
+            else if (res.status === 401) {
+                toast.error('Session expired, please login again');
+                localStorage.removeItem('token');
+                setTimeout(() => {
+                    navigate('/user/login', {
+                        replace: true,
+                    });
+                }, 2000);
+            }
+
             else {
-                toast.error(data.msg);
+                toast.error(data.msg, 'Something went wrong');
             }
 
         } catch (error) {
