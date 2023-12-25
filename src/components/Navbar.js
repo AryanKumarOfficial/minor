@@ -82,14 +82,14 @@ const LogoSectionComponent = () => {
     return (
         <section className="logo-section">
             <div className="logo">
-                <Link to={'/'} redirect={true}>
+                <Link to={'/'} >
                     <img src={'/images/logo.png'} alt="logo" />
                     <h1>Hospital Management System</h1>
                 </Link>
             </div>
             <div className="links">
                 <ul>
-                    <li style={{ backgroundColor: '#979b16' }}><Link to="/user/register" redirect={true}>User Login</Link></li>
+                    <li style={{ backgroundColor: '#979b16' }}><Link to="/user/register" >User Login</Link></li>
                     <li style={{ backgroundColor: '#4fc0e8' }}>
                         <Link to="user/login">Hospital Login</Link>
                     </li>

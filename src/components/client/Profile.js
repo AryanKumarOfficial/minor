@@ -1,30 +1,53 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import UserContext from "../../context/client/UserContext";
 
 const Profile = () => {
+    const [userDetail, setUserDetail] = useState({
+        fname: null,
+        lname: null,
+        email: null,
+        phone: null,
+
+    });
+    const capitalize = (str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    };
+    useEffect(() => {
+        document.title = "Profile";
+        // function to captalize first letter of string
+        let user = localStorage.getItem('user')
+        user = JSON.parse(user);
+        setUserDetail({
+            ...userDetail,
+            fname: capitalize(user.fname),
+            lname: capitalize(user.lname),
+            email: user.email,
+            phone: user.phone,
+        });
+    }
+        , []);
+
     return (
         <>
             {/* create a profile component for users */}
             <section
                 style={{
-                    height: "fit-content",
-                    width: "fit-content",
                     padding: "2rem",
                     margin: "2rem",
-                    filter: 'drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08))',
                 }}
-                className="drop-shadow-2xl flex justify-center items-center h-auto rounded-lg">
+                className="drop-shadow-2xl flex justify-center items-center rounded-lg shadow-lg">
                 <div className="flex flex-col justify-center items-center">
                     <img
-                        src="https://images.unsplash.com/photo-1612835364902-0f5e9f0a4e3b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Z2lybCUyMGZvcmR8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
+                        src="/images/avtar.png"
                         alt="profile"
-                        className="rounded-full h-40 w-40"
+                        className="rounded-full border-4 p-1 border-blue-700 h-40 w-40"
                     />
-                    <h1 className="text-2xl font-bold">John Doe</h1>
+                    <h1 className="text-2xl font-bold">{userDetail?.fname?.concat(" ", userDetail?.lname) || 'Jhon Doe'}</h1>
                     <p className="text-sm text-gray-500">
-                        <span className="font-bold">Email:</span>
+                        <span className="font-bold">Email: {userDetail?.email || 'example@mail.com'}</span>
                     </p>
                     <p className="text-sm text-gray-500">
-                        <span className="font-bold">Phone:</span>
+                        <span className="font-bold">Phone: {null}</span>
                     </p>
                     <p className="text-sm text-gray-500">
                         <span className="font-bold">Address:</span>

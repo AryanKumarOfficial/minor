@@ -82,6 +82,7 @@ const UserProvider = (props) => {
                     error: null,
                 });
                 localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
                 setTimeout(() => {
                     navigate('/user/dashboard', {
                         replace: true,
