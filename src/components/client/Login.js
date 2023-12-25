@@ -8,7 +8,7 @@ import { useContext } from 'react';
 import UserContext from '../../context/client/UserContext';
 
 function UserLogin() {
-    const { loginUser } = useContext(UserContext);
+    const { loginUser, user } = useContext(UserContext);
 
     const [showPassword, setShowPassword] = useState(false);
     const [eyeIcon, setEyeIcon] = useState(false); // [1,2,3,4,5,6,7,8,9,10]
@@ -19,6 +19,7 @@ function UserLogin() {
     const [disabled, setDisabled] = useState(true);
 
     useEffect(() => {
+        console.log(user, 'user in login');
         if (
             form.email.length > 0 &&
             form.password.length >= 6

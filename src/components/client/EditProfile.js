@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CgClose } from "react-icons/cg";
+import UserContext from '../../context/client/UserContext';
 const EditProfile = ({ handleClose, user }) => {
+    const { updateUser } = useContext(UserContext);
     useEffect(() => {
         // When the component is rendered, add 'no-scroll' class to the body
         document.body.classList.add('no-scroll');
@@ -26,7 +28,7 @@ const EditProfile = ({ handleClose, user }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add logic to update the user's profile
+        updateUser(formData);
         handleClose();
     };
 

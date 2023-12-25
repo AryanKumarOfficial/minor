@@ -1,198 +1,194 @@
 import React, { useEffect, useState } from 'react';
-import UserContext from './UserContext';
-import toast, { ToastBar, Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
+import UserContext from './UserContext';
+import useAuthToken from '../hooks/useAuthToken';
 
 const UserProvider = (props) => {
-    const [token, setToken] = useState(null);
     const navigate = useNavigate();
-    // const host = `https://minor-backend-n2nq.onrender.com`;
-    const host = `http://localhost:5000`;
+    const host = process.env.REACT_APP_API_HOST || 'http://localhost:5000';
     const authToken = localStorage.getItem('token');
-    const setAuthToken = (token) => {
-        setToken(token);
-    }
-    useEffect(() => {
-        setAuthToken(authToken);
-    }, [authToken]);
+    const { saveToken: updateToken, removeToken } = useAuthToken();
 
-    // Define initial state
-    const initialUserState = {
+    useEffect(() => {
+        updateToken(authToken);
+    }, [authToken, updateToken]);
+
+    const initialState = {
         data: null,
         error: null,
     };
 
-    // Create state with initial state
-    const [user, setUser] = useState(initialUserState);
+    const [user, setUser] = useState(initialState);
+    const [loading, setLoading] = useState(true);
 
-    // Define functions
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const config = {
+                    method: 'get',
+                    url: `${host}/user/get`,
+                    headers: {
+                        Authorization: `Bearer ${authToken}`,
+                        contentType: 'application/json',
+                    },
+                };
 
-    const registerUser = async (userData) => {
-        try {
-            const res = await fetch(`${host}/user/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            });
-            const data = await res.json();
-            if (data.success) {
-                toast.success('User registered successfully');
+                const res = await axios(config);
                 setUser({
                     ...user,
-                    data,
+                    data: res.data,
                     error: null,
                 });
-                setTimeout(() => {
-                    navigate('/user/login', {
-                        replace: true,
+            } catch (error) {
+                setUser({
+                    ...user,
+                    data: null,
+                    error: error.message || 'An error occurred',
+                });
+            }
+            finally {
+                setLoading(false);
+                console.log('finally');
+            }
+        }
+        if (authToken) {
+            fetchUser();
+        }
+    }, [authToken]);
 
-                    });
-                }, 2000);
-            }
-            else {
-                toast.error(data.msg);
-            }
-        } catch (error) {
+    const handleApiError = (error) => {
+        if (['JsonWebTokenError', 'UnauthorizedError', 'TokenExpiredError'].includes(error.name)) {
+            removeToken();
+            navigate('/user/login', { replace: true });
+        } else {
             setUser({
                 ...user,
                 data: null,
-                error: error.message,
+                error: error.message || 'An error occurred',
             });
         }
     };
 
-    const loginUser = async (userData) => {
-        try {
-            const res = await fetch(`${host}/user/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            });
-            const data = await res.json();
-            if (data.success) {
-                toast.success('User logged in successfully');
-                setUser({
-                    ...user,
-                    data,
-                    error: null,
-                });
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
-                setTimeout(() => {
-                    navigate('/user/dashboard', {
-                        replace: true,
+    const handleApiSuccess = (data) => {
+        setUser({
+            ...user,
+            data,
+            error: null,
+        });
+    };
 
-                    });
-                }, 2000);
-            }
-            else {
-                toast.error(data.msg);
-            }
+
+    const showToast = (message, type) => {
+        toast[type](message, {
+            duration: 2000,
+        });
+    };
+
+    const makeApiCall = async (config) => {
+        try {
+            const res = await axios(config);
+            handleApiSuccess(res.data);
+            showToast(res.data.msg, res?.data?.success ? 'success' : 'error');
+            return res.data;
         } catch (error) {
-            setUser({
-                ...user,
-                data: null,
-                error: error.message,
-            });
+            handleApiError(error);
+            showToast(error.response?.data?.msg || 'An error occurred', 'error');
+            throw error; // rethrow error for additional error handling, if needed
         }
+    };
+
+    const registerUser = async (formData) => {
+        const config = {
+            method: 'post',
+            url: `${host}/user/register`,
+            data: formData,
+        };
+
+        await makeApiCall(config);
+        console.log(user, 'user');
+        setTimeout(() => {
+            navigate('/user/login', { replace: true });
+        }, 2000);
+    };
+
+    const loginUser = async (formData) => {
+        const config = {
+            method: 'post',
+            url: `${host}/user/login`,
+            data: formData,
+        };
+
+        const data = await makeApiCall(config);
+        console.log(data, 'data');
+        updateToken(data.token);
+        setTimeout(() => {
+            data?.success && navigate('/user/dashboard', { replace: true });
+        }, 2000);
     };
 
     const logoutUser = async () => {
-        try {
-            const res = await fetch(`${host}/user/logout`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${authToken}`,
-                },
-            });
+        const config = {
+            method: 'post',
+            url: `${host}/user/logout`,
+            Headers: {
+                Authorization: `Bearer ${authToken}`,
+                contentType: 'application/json',
+            },
 
-            const data = await res.json();
-            if (data.success) {
-                toast.success('User logged out successfully');
-                setUser({
-                    ...user,
-                    data: null,
-                    error: null,
-                });
-                localStorage.removeItem('token');
-                setTimeout(() => {
-                    navigate('/user/login', {
-                        replace: true,
-                    });
-                }, 2000);
-            }
+        };
 
-            else if (res.status === 401) {
-                toast.error('Session expired, please login again');
-                localStorage.removeItem('token');
-                setTimeout(() => {
-                    navigate('/user/login', {
-                        replace: true,
-                    });
-                }, 2000);
-            }
-
-            else {
-                toast.error(data.msg, 'Something went wrong');
-            }
-
-        } catch (error) {
-            if (error.name === 'JsonWebTokenError') {
-                // Handle invalid token error (e.g., redirect to login)
-                localStorage.removeItem('token');
-                navigate('/user/login', {
-                    replace: true,
-                });
-            } else {
-                // Handle other errors
-                setUser({
-                    ...user,
-                    data: null,
-                    error: error.message || 'An error occurred during logout',
-                });
-            }
-        }
+        const data = await makeApiCall(config);
+        showToast(data.msg, data.success ? 'success' : 'error');
+        removeToken();
+        setTimeout(() => {
+            navigate('/user/login', { replace: true });
+        }, 2000);
     };
 
     const getUser = async () => {
-        try {
-            const res = await fetch(`${host}/user/get`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${authToken}`,
-                },
-            });
-            const data = await res.json();
-            setUser({
-                ...user,
-                data,
-                error: null,
-            });
+        const config = {
+            method: 'get',
+            url: `${host}/user`,
+            Headers: {
+                Authorization: `Bearer ${authToken}`,
+                contentType: 'application/json',
+            },
 
-        } catch (error) {
-            setUser({
-                ...user,
-                data: null,
-                error: error.message,
-            });
-        }
+        };
+
+        const data = await makeApiCall(config);
+        setUser(data);
     };
 
-    // Provide the context value
+    const updateUser = async (formData) => {
+        const config = {
+            method: 'put',
+            url: `${host}/user/update`,
+            data: formData,
+            headers: {
+                Authorization: `Bearer ${authToken}`,
+                'Content-Type': 'application/json',
+            },
+
+
+        };
+
+        const data = await makeApiCall(config);
+        setUser(data);
+
+    };
+
     const contextValue = {
         user,
+        loading,
         registerUser,
         loginUser,
         logoutUser,
         getUser,
-        token,
+        updateUser,
+        authToken,
     };
 
     return (
