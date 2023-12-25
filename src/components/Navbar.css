@@ -428,10 +428,11 @@ nav.navbar ul li button:hover {
     }
 
     nav.navbar ul li {
+        display: flex;
         border: none;
         width: 100%;
         /* margin: 0; */
-        /* padding: 0; */
+        padding: 0.45rem 1.2rem;
     }
 
     nav.navbar ul li:not(:first-child)::before {
@@ -463,6 +464,30 @@ nav.navbar ul li button:hover {
     }
 
     nav.navbar ul li a :hover {
+        color: #b15110;
+    }
+
+
+    nav.navbar ul li button {
+        position: absolute;
+        background: #d15110;
+        justify-content: flex-end;
+        right: 1rem;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+
+    nav.navbar ul li button span {
+        display: none;
+    }
+
+    nav.navbar ul li button:hover {
+        background: #fff;
         color: #b15110;
     }
 

@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserContext from './UserContext';
 import toast, { ToastBar, Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 
 const UserProvider = (props) => {
+    const [token, setToken] = useState(null);
     const navigate = useNavigate();
     // const host = `https://minor-backend-n2nq.onrender.com`;
     const host = `http://localhost:5000`;
     const authToken = localStorage.getItem('token');
+    const setAuthToken = (token) => {
+        setToken(token);
+    }
+    useEffect(() => {
+        setAuthToken(authToken);
+    }, [authToken]);
 
     // Define initial state
     const initialUserState = {
@@ -173,6 +180,7 @@ const UserProvider = (props) => {
         loginUser,
         logoutUser,
         getUser,
+        token,
     };
 
     return (

@@ -100,7 +100,7 @@ const LogoSectionComponent = () => {
 };
 
 const NavbarComponent = () => {
-    const { logoutUser } = useContext(UserContext);
+    const { logoutUser, token } = useContext(UserContext);
     const handleToggle = () => {
         const nav = document.querySelector(".navbar ul");
         console.log(nav);
@@ -134,12 +134,15 @@ const NavbarComponent = () => {
                 <li><Link to="/services">Services</Link></li>
                 <li><Link to="/privacy">Privacy Policy</Link></li>
                 <li><Link to="/terms">Terms & Conditions</Link></li>
-                <li className='before:!border-none absolute right-0'>
-                    <button onClick={logoutUser} className='flex gap-2 items-center'>
-                        <MdLogout size={25} />
-                        Logout
-                    </button>
-                </li>
+                {
+                    token &&
+                    <li className='before:!border-none absolute right-0'>
+                        <button onClick={logoutUser} className='flex gap-2 items-center'>
+                            <MdLogout size={25} />
+                            <span>Logout</span>
+                        </button>
+                    </li>
+                }
             </ul>
 
         </nav>

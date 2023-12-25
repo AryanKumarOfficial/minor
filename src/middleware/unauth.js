@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export default ({ children }) => {
+const Unauth = ({ children }) => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     if (token) {
@@ -8,3 +8,5 @@ export default ({ children }) => {
     }
     return children;
 }
+
+export default Unauth;
