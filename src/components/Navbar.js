@@ -83,8 +83,12 @@ const LogoSectionComponent = () => {
         <section className="logo-section">
             <div className="logo">
                 <Link to={'/'} >
-                    <img src={'/images/logo.png'} alt="logo" />
-                    <h1>Hospital Management System</h1>
+                    <img
+                        src={'/images/logo.svg'}
+                        alt="logo"
+                        className='border-8 border-[#07294d] rounded-full p-1 mx-4'
+                    />
+                    <h1 className='text-[#07294d]'><code lang='js'>Hospitalo</code></h1>
                 </Link>
             </div>
             <div className="links">

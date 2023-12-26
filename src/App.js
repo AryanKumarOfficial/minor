@@ -32,12 +32,11 @@ const App = () => {
         if (JWT) {
             setHideNav(true);
         }
-        if (token) {
+        if (JWT) {
             setHideNav(true);
         }
         if (!token) {
             showToast('Session expired, please login again', 'error');
-            navigate('/user/login'); // Redirect to login page
         }
 
         const interval = setInterval(() => {
@@ -87,7 +86,7 @@ const App = () => {
                 <Route path="/home" element={<Home />} />
                 <Route path="/user/register" element={<UnauthorizeUsr><UsrReg /></UnauthorizeUsr>} />
                 <Route path="/user/login" element={<UnauthorizeUsr><UsrLogin /></UnauthorizeUsr>} />
-                <Route path="/user/dashboard" element={<AuthorizeUsr><UsrDashboard /></AuthorizeUsr>} />
+                <Route path="/user/dashboard/profile" element={<AuthorizeUsr><UsrDashboard /></AuthorizeUsr>} />
                 <Route path="/about" element={<About />} />
             </Routes>
             <Footer />

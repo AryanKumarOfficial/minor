@@ -6,9 +6,10 @@ import toast, { ToastBar, Toaster } from 'react-hot-toast';
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
 import { useContext } from 'react';
 import UserContext from '../../context/client/UserContext';
+import useAuthToken from '../../context/hooks/useAuthToken';
 
 function UserLogin() {
-    const { loginUser, user } = useContext(UserContext);
+    const { loginUser, user, showToast } = useContext(UserContext);
 
     const [showPassword, setShowPassword] = useState(false);
     const [eyeIcon, setEyeIcon] = useState(false); // [1,2,3,4,5,6,7,8,9,10]
@@ -17,6 +18,8 @@ function UserLogin() {
         password: '',
     });
     const [disabled, setDisabled] = useState(true);
+    const [token, setToken] = useState(null);
+    const { checkTokenExpiration, getToken } = useAuthToken();
 
     useEffect(() => {
         if (
@@ -34,6 +37,15 @@ function UserLogin() {
 
 
     }, [form.email, form.password]);
+
+    useEffect(() => {
+        setToken(checkTokenExpiration());
+        if (!token) {
+            showToast('Session expired, please login again', 'error');
+        }
+    }
+        , [user]);
+
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
