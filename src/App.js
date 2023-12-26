@@ -14,6 +14,7 @@ import LoadingBar from 'react-top-loading-bar'
 import useAuthToken from './context/hooks/useAuthToken';
 import UserContext from '../src/context/client/UserContext';
 import Navbar from './components/client/Navbar';
+import toast from 'react-hot-toast';
 
 const App = () => {
     const { checkTokenExpiration, getToken } = useAuthToken();
