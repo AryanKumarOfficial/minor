@@ -1,6 +1,7 @@
 import React from 'react';
 import './Home.css';
 import { Link } from 'react-router-dom';
+import Logo from './components/Logo';
 
 const Home = () => {
   return (
@@ -66,8 +67,11 @@ const Home = () => {
         </a>
       </div>
       <div className="admin-desk md:flex-wrap">
-        <div className="img">
-          <img src="/images/logo.png" alt="" />
+        <div className="flex flex-col items-center justify-center space-y-2 transition-all cursor-default">
+          <Logo
+            className='peer border-8 p-1 rounded-full scale-75 transition-all border-[#07294d] shadow-2xl  outline-emerald-700 outline-double outline-8 '
+            fill={'rgb(7, 41, 77)'}
+          />
         </div>
         <div className="content">
           <h3>From HMS's Desk</h3>

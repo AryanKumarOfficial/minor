@@ -130,6 +130,7 @@ section.logo-section .logo {
     flex-wrap: wrap;
     margin-left: 0rem;
     margin-top: 0rem;
+    animation: slideInFromLeft 2s ease-in-out;
 }
 
 section.logo-section .logo a {
@@ -140,7 +141,7 @@ section.logo-section .logo a {
 }
 
 section.logo-section .logo img {
-    height: 200px;
+    height: 125px;
 }
 
 section.logo-section .logo h1 {
@@ -171,6 +172,7 @@ section.logo-section .links {
     flex-wrap: wrap;
     align-items: center;
     margin-right: 2rem;
+    animation: slideInFromRight 2s ease-in-out;
 
 }
 
@@ -491,4 +493,29 @@ nav.navbar ul li button:hover {
         color: #b15110;
     }
 
+}
+
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }

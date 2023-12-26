@@ -47,14 +47,14 @@ footer.footer .contact {
 }
 
 footer.footer .logo-section {
-    flex-wrap: wrap;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     /* margin: 1rem 1rem;
     padding: 1rem 1rem; */
-    gap: 1rem;
+    /* gap: 1rem; */
     text-align: center;
 }
 
@@ -65,10 +65,15 @@ footer.footer .logo-section p {
     color: #b15110;
 }
 
-footer.footer .logo-section img {
-    height: 100px;
-    width: 100px;
+footer.footer .logo-section svg {
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
+    margin-bottom: auto;
+}
+
+g[fill="#07294d"] {
+    fill: #fff;
 }
 
 footer.footer .quick h5 {
@@ -199,6 +204,7 @@ footer.footer .contact ul li a>span .icon:hover {
         z-index: -1;
         opacity: 1;
     }
+
     footer.footer .wrapper {
         display: flex;
         flex-wrap: wrap;
@@ -247,7 +253,7 @@ footer.footer .contact ul li a>span .icon:hover {
         border-radius: 50%;
     }
 
-    footer.footer .quick{
+    footer.footer .quick {
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;

@@ -4,16 +4,25 @@ import { PiPhoneCallFill } from 'react-icons/pi';
 import { IoIosMail } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import { FaLocationDot } from 'react-icons/fa6';
+import Logo from './Logo';
 
 const Footer = () => {
     return (
         <footer className='footer'>
             <div className="wrapper">
                 <div className="logo-section">
-                    <Link to={'/'}><img src="/images/logo.png" alt="logo" /></Link>
-                    <p>
-                        Connecting Patients to Care, Anytime, Anywhere.
-                    </p>
+                    <Link
+                        to={'/'}
+                        className='flex flex-col items-center justify-center space-y-2 transition-all cursor-default'
+                    >
+                        <Logo
+                            className='peer border-8 p-1 border-[#fff] rounded-full w-16 h-16 hover:scale-105 transition-all hover:border-[#07294d] shadow-2xl md:w-1/2 md:mx-auto md:my-0 md:mt-10 md:mb-10 cursor-pointer outline-emerald-700 outline-double outline-8'
+                            fill={'#fff'}
+                        />
+                        <p className='peer-hover:text-white transition-all pt-4'>
+                            Connecting Patients to Care, Anytime, Anywhere.
+                        </p>
+                    </Link>
                 </div>
                 <div className="quick">
                     <h5>

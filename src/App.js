@@ -15,6 +15,7 @@ import useAuthToken from './context/hooks/useAuthToken';
 import UserContext from '../src/context/client/UserContext';
 import Navbar from './components/client/Navbar';
 import toast from 'react-hot-toast';
+import TransitionExample from './components/Trans';
 
 const App = () => {
     const { checkTokenExpiration, getToken } = useAuthToken();
@@ -88,6 +89,7 @@ const App = () => {
                 <Route path="/user/login" element={<UnauthorizeUsr><UsrLogin /></UnauthorizeUsr>} />
                 <Route path="/user/dashboard/profile" element={<AuthorizeUsr><UsrDashboard /></AuthorizeUsr>} />
                 <Route path="/about" element={<About />} />
+                <Route path="/effect" element={<TransitionExample />} />
             </Routes>
             <Footer />
         </>

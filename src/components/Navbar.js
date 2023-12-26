@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { TiThMenu } from "react-icons/ti";
 import { MdLogout } from "react-icons/md";
 import UserContext from '../context/client/UserContext';
+import Logo from './Logo';
 
 
 const HeaderComponent = () => {
@@ -83,12 +84,11 @@ const LogoSectionComponent = () => {
         <section className="logo-section">
             <div className="logo">
                 <Link to={'/'} >
-                    <img
-                        src={'/images/logo.svg'}
-                        alt="logo"
-                        className='border-8 border-[#07294d] rounded-full p-1 mx-4'
+                    <Logo
+                        fill={'rgb(7, 41, 77)'}
+                        className={'peer border-8 p-1 rounded-full scale-75 transition-all border-[#07294d] '}
                     />
-                    <h1 className='text-[#07294d]'><code lang='js'>Hospitalo</code></h1>
+                    <h1 className='text-[#07294d] peer-hover:text-[#07291d4a]'><code lang='js'>Hospitalo</code></h1>
                 </Link>
             </div>
             <div className="links">
