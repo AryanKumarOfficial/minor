@@ -5,7 +5,6 @@ import UserContext from "../../context/client/UserContext";
 import Typed from "typed.js";
 
 const Profile = () => {
-    const el = useRef(null);
     const { user, loading } = useContext(UserContext);
     const capitalize = (str) => {
         return str?.charAt(0)?.toUpperCase() + str?.slice(1);
@@ -27,15 +26,31 @@ const Profile = () => {
 
 
 
-    loading && <Loading />
-    !loading && <Loaded />
 
+    if (loading) {
+        return <Loading />;
+    } else {
+        return <Loaded />;
+
+    };
 };
 
 const Loading = () => {
+    const el = useRef(null);
+    useEffect(() => {
+        const typed = new Typed(el.current, {
+            strings: ["Loading", "Please wait"],
+            typeSpeed: 100,
+            backSpeed: 100,
+            loop: true,
+        });
+        return () => {
+            typed.destroy();
+        };
+    }, []);
     return (
         <div className="flex justify-center items-center h-screen">
-            <h1 className="text-4xl font-bold">Loading<span id="typer">...</span></h1>
+            <h1 className="text-4xl font-bold"><span ref={el} id="typer">...</span></h1>
         </div>
     );
 };
