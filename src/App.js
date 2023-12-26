@@ -43,8 +43,14 @@ const App = () => {
             setToken(checkTokenExpiration());
         }, 60000 * 5); // Run every 1 minute (adjust the interval as needed)
 
+        const timer = setTimeout(() => {
+            toast.dismiss();
+        }, 2000);
+
+
         return () => {
             clearInterval(interval);
+            clearTimeout(timer);
             setProgress(0);
         };
     }, [JWT, token, hideNav, navigate]);

@@ -29,6 +29,10 @@ function UserLogin() {
         else {
             setDisabled(true);
         }
+
+        // destroy toast after 2000
+
+
     }, [form.email, form.password]);
 
     const handleChange = (e) => {

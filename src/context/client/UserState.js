@@ -50,7 +50,6 @@ const UserProvider = (props) => {
             }
             finally {
                 setLoading(false);
-                console.log('finally');
             }
         }
         if (authToken) {
@@ -81,11 +80,11 @@ const UserProvider = (props) => {
 
 
     const showToast = (message, type) => {
-        toast[type](message, {
+        const { [type]: toastType } = toast;
+        toastType(message, {
             duration: 2000,
         });
     };
-
     const makeApiCall = async (config) => {
         try {
             const res = await axios(config);
