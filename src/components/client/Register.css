@@ -34,13 +34,13 @@ main.usr-register .register-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: transparent;
+    background: rgba(255, 255, 255, 0);
     justify-content: center;
     width: 20rem;
     height: 25rem;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(80px);
+    backdrop-filter: blur(20px);
 
 }
 
