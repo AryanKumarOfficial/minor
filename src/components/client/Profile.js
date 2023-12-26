@@ -6,17 +6,6 @@ import Typed from "typed.js";
 
 const Profile = () => {
     const { user, loading } = useContext(UserContext);
-    const capitalize = (str) => {
-        return str?.charAt(0)?.toUpperCase() + str?.slice(1);
-    };
-    const [userDetail, setUserDetail] = useState({
-        fname: capitalize(user?.data?.fname) || '',
-        lname: capitalize(user?.data?.lname) || '',
-        email: user?.data?.email || 'example@mail.com',
-        phone: user?.data?.phone || null,
-        address: user?.data?.address || null,
-        role: user?.data?.role || null,
-    });
 
     useEffect(() => {
         document.title = "Profile";
@@ -50,12 +39,12 @@ const Loading = () => {
     }, []);
     return (
         <div className="flex justify-center items-center h-screen">
-            <h1 className="text-4xl font-bold"><span ref={el} id="typer">...</span></h1>
+            <h1 className="text-4xl font-bold"><span ref={el} id="typer"></span></h1>
         </div>
     );
 };
 const Loaded = () => {
-    const { user, loading } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const [edit, setEdit] = useState(false);
     const handleEdit = () => {
         setEdit(true);

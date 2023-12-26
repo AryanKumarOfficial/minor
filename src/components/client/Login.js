@@ -38,13 +38,6 @@ function UserLogin() {
 
     }, [form.email, form.password]);
 
-    useEffect(() => {
-        setToken(checkTokenExpiration());
-        if (!token) {
-            showToast('Session expired, please login again', 'error');
-        }
-    }
-        , [user]);
 
 
     const handleChange = (e) => {
@@ -101,9 +94,9 @@ function UserLogin() {
                         <button type="submit" className="btn disabled:!cursor-not-allowed disabled:!bg-[#d2bfb2] disabled:hover:!text-white disabled:hover:!shadow-none" disabled={disabled}>Login</button>
                         <div className="logined">
                             <p>New to plateform?
-                                <a href="/user/register">
+                                <Link to="/user/register">
                                     Register
-                                </a>
+                                </Link>
                             </p>
                         </div>
                     </form>

@@ -31,13 +31,26 @@ function UserRegistration() {
             form.cpassword.length >= 6 &&
             form.password === form.cpassword &&
             form.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
-                
+
         ) {
             setDisabled(false);
         }
         else {
             setDisabled(true);
         }
+
+        // destroy toast after 2000
+
+        const timer = setTimeout(() => {
+            toast.dismiss();
+        }, 2000);
+
+        return () => {
+            setDisabled(true);
+            clearTimeout(timer);
+
+        }
+
     }, [form.fname, form.lname, form.email, form.password, form.cpassword]);
 
     const handleChange = (e) => {
@@ -106,9 +119,9 @@ function UserRegistration() {
                         <button type="submit" className="btn disabled:!cursor-not-allowed disabled:!bg-[#d2bfb2] disabled:hover:!text-white disabled:hover:!shadow-none" disabled={disabled}>Register</button>
                         <div className="registered">
                             <p>Already have an account?
-                                <a href="/user/login">
+                                <Link to="/user/login">
                                     Login
-                                </a>
+                                </Link>
                             </p>
                         </div>
                     </form>

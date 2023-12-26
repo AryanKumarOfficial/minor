@@ -29,29 +29,15 @@ const App = () => {
 
     useEffect(() => {
         setProgress(100);
-        setToken(checkTokenExpiration());
         setJWT(getToken());
         if (JWT) {
             setHideNav(true);
         }
-        if (JWT) {
-            setHideNav(true);
-        }
-        if (!token) {
-            showToast('Session expired, please login again', 'error');
-        }
-
-        const interval = setInterval(() => {
-            setToken(checkTokenExpiration());
-        }, 60000 * 5); // Run every 1 minute (adjust the interval as needed)
-
         const timer = setTimeout(() => {
             toast.dismiss();
         }, 2000);
 
-
         return () => {
-            clearInterval(interval);
             clearTimeout(timer);
             setProgress(0);
         };

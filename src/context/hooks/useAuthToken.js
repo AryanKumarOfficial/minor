@@ -22,12 +22,25 @@ const useAuthToken = () => {
             const currentTime = Math.floor(Date.now() / 1000);
             if (decodedToken.exp < currentTime) {
                 removeToken();
-                return null;
+                return {
+                    error: 'Token expired',
+                    status: 401
+
+                };
             } else {
-                return token;
+                return {
+                    token,
+                    status: 200
+                };
             }
         }
-        return null;
+        else {
+            return {
+                error: 'No token found',
+                status: 404
+            };
+        }
+
     };
 
     const updateToken = (token) => {
