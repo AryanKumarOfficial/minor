@@ -7,12 +7,13 @@ import useAuthToken from '../hooks/useAuthToken';
 
 const UserProvider = (props) => {
     const navigate = useNavigate();
-    const host = process.env.REACT_APP_API_HOST || 'http://localhost:5000';
+    const host = process.env.REACT_APP_API_HOST ;
     const authToken = localStorage.getItem('token');
     const { saveToken: updateToken, removeToken } = useAuthToken();
 
     useEffect(() => {
         updateToken(authToken);
+        console.log(host, 'host');
     }, [authToken, updateToken]);
 
     const initialState = {
