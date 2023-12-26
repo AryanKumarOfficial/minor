@@ -21,10 +21,10 @@ const NavbarComponent = () => {
                 </button>
                 <div className='hidden md:flex flex-grow justify-end w-full'>
                     <ul className='flex flex-grow justify-end items-center space-x-4'>
-                        <NavLink to='/user/dashboard' icon={<FaBriefcaseMedical size={20} className='mr-1' />}>
+                        <NavLink to='/user/dashboard/appointment' icon={<FaBriefcaseMedical size={20} className='mr-1' />}>
                             Appointment
                         </NavLink>
-                        <NavLink to='/user/dashboard' icon={<RiUserLine size={20} className='mr-1' />}>
+                        <NavLink to='/user/dashboard/profile' icon={<RiUserLine size={20} className='mr-1' />}>
                             Profile
                         </NavLink>
                         <li>

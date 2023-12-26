@@ -124,7 +124,7 @@ const UserProvider = (props) => {
         console.log(data, 'data');
         updateToken(data.token);
         setTimeout(() => {
-            data?.success && navigate('/user/dashboard', { replace: true });
+            data?.success && navigate('/user/dashboard/profile', { replace: true });
         }, 2000);
     };
 

@@ -16,6 +16,7 @@ import UserContext from '../src/context/client/UserContext';
 import Navbar from './components/client/Navbar';
 import toast from 'react-hot-toast';
 import TransitionExample from './components/Trans';
+import NotFound from './components/404';
 
 const App = () => {
     const { checkTokenExpiration, getToken } = useAuthToken();
@@ -83,6 +84,7 @@ const App = () => {
                 )
             }
             <Routes>
+                <Route path="*" element={<NotFound />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/user/register" element={<UnauthorizeUsr><UsrReg /></UnauthorizeUsr>} />
