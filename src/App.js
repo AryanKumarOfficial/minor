@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './index.css';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import About from './components/About';
 import Home from './Home';
 import { HeaderComponent, LogoSectionComponent, NavbarComponent } from './components/Navbar';
@@ -13,22 +13,48 @@ import UnauthorizeUsr from './middleware/unauth';
 import LoadingBar from 'react-top-loading-bar'
 import useAuthToken from './context/hooks/useAuthToken';
 import UserContext from '../src/context/client/UserContext';
+import Navbar from './components/client/Navbar';
 
 const App = () => {
-    const { checkTokenExpiration } = useAuthToken()
-    const { showToast } = useContext(UserContext)
-    const [progress, setProgress] = React.useState(0)
-    React.useEffect(() => {
+    const { checkTokenExpiration, getToken } = useAuthToken();
+    const { showToast } = useContext(UserContext);
+    const [progress, setProgress] = useState(0);
+    const [hideNav, setHideNav] = useState(false);
+    const [token, setToken] = useState(null);
+    const [JWT, setJWT] = useState(getToken());
+    const navigate = useNavigate();
+
+    useEffect(() => {
         setProgress(100);
-        const token = checkTokenExpiration();
+        setToken(checkTokenExpiration());
+        setJWT(getToken());
+        if (JWT) {
+            setHideNav(true);
+        }
+        if (token) {
+            setHideNav(true);
+        }
         if (!token) {
-            showToast('Session expired, please login again', 'error')
+            showToast('Session expired, please login again', 'error');
+            navigate('/user/login'); // Redirect to login page
         }
 
+        const interval = setInterval(() => {
+            setToken(checkTokenExpiration());
+        }, 60000 * 5); // Run every 1 minute (adjust the interval as needed)
+
         return () => {
+            clearInterval(interval);
             setProgress(0);
         };
-    }, []);
+    }, [JWT, token, hideNav, navigate]);
+
+    const handleLogout = () => {
+        // Perform logout logic here
+        setHideNav(false);
+        navigate('/user/login'); // Redirect to login page
+    };
+
     return (
         <>
             <LoadingBar
@@ -37,9 +63,18 @@ const App = () => {
                 progress={progress}
                 onLoaderFinished={() => setProgress(0)}
             />
-            <HeaderComponent />
-            <LogoSectionComponent />
-            <NavbarComponent />
+            {!hideNav && (
+                <>
+                    <HeaderComponent />
+                    <LogoSectionComponent />
+                    <NavbarComponent />
+                </>
+            )}
+            {
+                hideNav && (
+                    <Navbar handleLogout={handleLogout} />
+                )
+            }
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
@@ -50,7 +85,7 @@ const App = () => {
             </Routes>
             <Footer />
         </>
-    )
-}
+    );
+};
 
-export default App
+export default App;

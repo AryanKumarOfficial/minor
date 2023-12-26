@@ -19,7 +19,6 @@ function UserLogin() {
     const [disabled, setDisabled] = useState(true);
 
     useEffect(() => {
-        console.log(user, 'user in login');
         if (
             form.email.length > 0 &&
             form.password.length >= 6

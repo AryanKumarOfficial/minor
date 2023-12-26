@@ -31,7 +31,7 @@ const UserProvider = (props) => {
                     url: `${host}/user/get`,
                     headers: {
                         Authorization: `Bearer ${authToken}`,
-                        contentType: 'application/json',
+                        'Content-Type': 'application/json',
                     },
                 };
 
@@ -130,11 +130,11 @@ const UserProvider = (props) => {
 
     const logoutUser = async () => {
         const config = {
-            method: 'post',
+            method: 'get',
             url: `${host}/user/logout`,
-            Headers: {
+            headers: {
                 Authorization: `Bearer ${authToken}`,
-                contentType: 'application/json',
+                'Content-Type': 'application/json',
             },
 
         };
@@ -150,10 +150,10 @@ const UserProvider = (props) => {
     const getUser = async () => {
         const config = {
             method: 'get',
-            url: `${host}/user`,
-            Headers: {
+            url: `${host}/user/get`,
+            headers: {
                 Authorization: `Bearer ${authToken}`,
-                contentType: 'application/json',
+                'Content-Type': 'application/json',
             },
 
         };
