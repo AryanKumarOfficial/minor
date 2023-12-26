@@ -8,8 +8,7 @@ const Profile = () => {
     const { user, loading } = useContext(UserContext);
 
     useEffect(() => {
-        document.title = "Profile";
-        console.log(user, 'user in profile');
+        document.title = "Hospitalo | Profile";
 
     }, [user]);
 

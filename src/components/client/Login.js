@@ -22,6 +22,7 @@ function UserLogin() {
     const { checkTokenExpiration, getToken } = useAuthToken();
 
     useEffect(() => {
+        document.title = 'Hospitalo | User Login';
         if (
             form.email.length > 0 &&
             form.password.length >= 6

@@ -1,8 +1,13 @@
 // NotFound.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import './404.css';
 
 const NotFound = () => {
+
+    useEffect(() => {
+        document.title = 'Hospitalo | page not found';
+    }, []);
+
     return (
         <div id='main-404' className="flex flex-col items-center justify-center h-screen">
             <h1 className="text-4xl font-bold">404 - Not Found</h1>

@@ -23,6 +23,7 @@ function UserRegistration() {
     const [disabled, setDisabled] = useState(true);
 
     useEffect(() => {
+        document.title = 'Hospitalo | User Registration';
         if (
             form.fname.length > 0 &&
             form.lname.length > 0 &&
