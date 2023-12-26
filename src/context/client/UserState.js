@@ -189,6 +189,7 @@ const UserProvider = (props) => {
         getUser,
         updateUser,
         authToken,
+        showToast,
     };
 
     return (

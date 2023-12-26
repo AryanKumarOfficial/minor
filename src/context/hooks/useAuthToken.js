@@ -1,32 +1,34 @@
 // useAuthToken.js
 
 const useAuthToken = () => {
+    const TOKEN_KEY = 'token';
 
-    /**
-     * Retrieve token from local storage
-     * @returns {string|null} the token if present, null otherwise
-     */
+    const getToken = () => localStorage.getItem(TOKEN_KEY);
 
-    const getToken = () => localStorage.getItem('token');
+    const saveToken = (token) => localStorage.setItem(TOKEN_KEY, token);
 
-    /**
-     * Save token to local storage
-     * @param {string} token the token to be saved
-     */
+    const removeToken = () => localStorage.removeItem(TOKEN_KEY);
 
-    const saveToken = (token) => localStorage.setItem('token', token);
+    const decode = (token) => {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
+    };
 
-    /**
-     * Remove token from local storage
-     */
-
-    const removeToken = () => localStorage.removeItem('token');
-
-    /**
-     * Update token in local storage. If token is provided, it is saved;
-     * otherwise, the existing token is removed.
-     * @param {string|null} token - the token to be saved
-     */
+    const checkTokenExpiration = () => {
+        const token = getToken();
+        if (token) {
+            const decodedToken = decode(token);
+            const currentTime = Math.floor(Date.now() / 1000);
+            if (decodedToken.exp < currentTime) {
+                removeToken();
+                return null;
+            } else {
+                return token;
+            }
+        }
+        return null;
+    };
 
     const updateToken = (token) => {
         if (token) {
@@ -40,6 +42,7 @@ const useAuthToken = () => {
         getToken,
         saveToken: updateToken,
         removeToken,
+        checkTokenExpiration,
     };
 };
 
