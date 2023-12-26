@@ -10,8 +10,9 @@
 
 # production
 /build
-
+/backend
 # misc
+# this is the work of the devil that is why it is commented out and not deleted yet :)
 .DS_Store
 #  add .env file to gitignore
 .env
@@ -23,3 +24,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Local Netlify folder
+.netlify
