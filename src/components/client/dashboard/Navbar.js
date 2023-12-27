@@ -4,8 +4,8 @@ import { RiHome2Line, RiInformationLine, RiUserLine, RiLogoutBoxLine, RiMenuLine
 import { FcBriefcase } from 'react-icons/fc';
 import { MdClose } from 'react-icons/md';
 import { FaBriefcaseMedical } from 'react-icons/fa6';
-import UserContext from '../../context/client/UserContext';
-import Logo from '../Logo';
+import UserContext from '../../../context/client/UserContext';
+import Logo from '../../Logo';
 
 const NavbarComponent = () => {
     const { logoutUser } = useContext(UserContext);
@@ -37,7 +37,7 @@ const NavbarComponent = () => {
                     <ul className={`flex flex-col md:flex-row flex- justify-start items-center space-x-0 md:space-x-0 md:space-y-0 content-start ${isMenuOpen ? 'block' : 'hidden'} md:flex py-2 md:relative md:left-16`}>
                         <NavLink
                             isMenuOpen={isMenuOpen}
-                            to='/user/dashboard/appointment'
+                            to='/user/dashboard/appointments'
                             icon={
                                 <FaBriefcaseMedical
                                     size={20}

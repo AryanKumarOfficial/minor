@@ -7,17 +7,17 @@ import { HeaderComponent, LogoSectionComponent, NavbarComponent } from './compon
 import Footer from './components/Footer';
 import UsrReg from './components/client/Register'
 import UsrLogin from './components/client/Login'
-import UsrDashboard from './components/client/Dashboard'
+import UsrDashboard from './components/client/dashboard/Dashboard';
 import AuthorizeUsr from './middleware/auth';
 import UnauthorizeUsr from './middleware/unauth';
 import LoadingBar from 'react-top-loading-bar'
 import useAuthToken from './context/hooks/useAuthToken';
 import UserContext from '../src/context/client/UserContext';
-import Navbar from './components/client/Navbar';
+import Navbar from './components/client/dashboard/Navbar';
 import toast from 'react-hot-toast';
 import TransitionExample from './components/Trans';
 import NotFound from './components/404';
-import UsrAppointments from './components/client/Appointments';
+import UsrAppointments from './components/client/dashboard/Appointments';
 
 const App = () => {
     const { checkTokenExpiration, getToken } = useAuthToken();

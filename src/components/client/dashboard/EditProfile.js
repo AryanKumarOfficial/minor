@@ -1,7 +1,7 @@
 // edit profile modal
 import React, { useContext, useEffect, useState } from 'react';
 import { CgClose } from "react-icons/cg";
-import UserContext from '../../context/client/UserContext';
+import UserContext from '../../../context/client/UserContext';
 const EditProfile = ({ handleClose, user }) => {
     const { updateUser } = useContext(UserContext);
     const captalise = (str) => {

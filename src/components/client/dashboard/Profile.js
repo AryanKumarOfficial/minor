@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { HiPencilAlt } from "react-icons/hi";
 import EditProfile from "./EditProfile";
-import UserContext from "../../context/client/UserContext";
+import UserContext from "../../../context/client/UserContext";
 import Typed from "typed.js";
 
 const Profile = () => {
