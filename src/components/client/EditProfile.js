@@ -4,17 +4,17 @@ import UserContext from '../../context/client/UserContext';
 const EditProfile = ({ handleClose, user }) => {
     const { updateUser } = useContext(UserContext);
     const captalise = (str) => {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+        return str ?? str?.charAt(0)?.toUpperCase() + str?.slice(1);
     };
     useEffect(() => {
         document.title = `Edit Profile - ${captalise(user.fname)} ${captalise(user.lname)}`;
 
         // When the component is rendered, add 'no-scroll' class to the body
-        document.body.classList.add('no-scroll');
+        document.body.classList.add('overflow-y-hidden');
         console.log(user);
         // When the component is unmounted, remove 'no-scroll' class from the body
         return () => {
-            document.body.classList.remove('no-scroll');
+            document.body.classList.remove('overflow-y-hidden');
         };
     }, []); // Empty dependency array ensures this runs on mount and unmount only
 
@@ -31,10 +31,10 @@ const EditProfile = ({ handleClose, user }) => {
     }
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        updateUser(formData);
-        handleClose();
+    const handleSubmit = async (e) => {
+        await e.preventDefault();
+        await updateUser(formData);
+        await handleClose();
     };
 
     return (

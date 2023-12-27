@@ -6,17 +6,33 @@ import Typed from "typed.js";
 
 const Profile = () => {
     const { user, loading } = useContext(UserContext);
+    const [loadingState, setLoadingState] = useState(true);// set only true when the data rendered is not undefined or null
+    const [error, setError] = useState(null);
 
 
     useEffect(() => {
         document.title = "Hospitalo | Profile";
         console.log(user, 'user profile');
+        document.body.classList.add('overflow-x-hidden');
+        if (user?.data?.user) {
+            setLoadingState(false);
+
+        }
+        else {
+            setError('An error occurred');
+            setLoadingState(true);
+        }
+
+        return () => {
+            document.body.classList.remove('overflow-x-hidden');
+        };
+
     }, [user]);
 
 
 
 
-    if (loading) {
+    if (loading || loadingState) {
         return <Loading />;
     } else {
         return <Loaded />;
@@ -28,10 +44,11 @@ const Loading = () => {
     const el = useRef(null);
     useEffect(() => {
         const typed = new Typed(el.current, {
-            strings: ["Loading", "Please wait"],
+            strings: ["Loading...", "Please wait..."],
             typeSpeed: 100,
             backSpeed: 100,
             loop: true,
+            cursorChar: "",
         });
         return () => {
             typed.destroy();
@@ -56,7 +73,7 @@ const Loaded = () => {
     };
 
     const captalise = (str) => {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+        return str && str?.charAt(0)?.toUpperCase() + str?.slice(1);
     };
     return (
         <>
