@@ -3,7 +3,12 @@ import { CgClose } from "react-icons/cg";
 import UserContext from '../../context/client/UserContext';
 const EditProfile = ({ handleClose, user }) => {
     const { updateUser } = useContext(UserContext);
+    const captalise = (str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    };
     useEffect(() => {
+        document.title = `Edit Profile - ${captalise(user.fname)} ${captalise(user.lname)}`;
+
         // When the component is rendered, add 'no-scroll' class to the body
         document.body.classList.add('no-scroll');
         console.log(user);

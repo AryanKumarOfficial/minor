@@ -7,6 +7,7 @@ import Typed from "typed.js";
 const Profile = () => {
     const { user, loading } = useContext(UserContext);
 
+
     useEffect(() => {
         document.title = "Hospitalo | Profile";
         console.log(user, 'user profile');
@@ -50,7 +51,12 @@ const Loaded = () => {
     };
 
     const handleClose = () => {
+        document.title = "Hospitalo | Profile";
         setEdit(false);
+    };
+
+    const captalise = (str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
     };
     return (
         <>
@@ -69,7 +75,7 @@ const Loaded = () => {
                         alt="profile"
                         className="rounded-full border-4 p-1 border-blue-700 h-40 w-40"
                     />
-                    <h1 className="text-2xl font-bold">{`${user?.data?.user?.fname} ${user?.data?.user?.lname}` || 'Jhon Doe'}</h1>
+                    <h1 className="text-2xl font-bold">{`${captalise(user?.data?.user?.fname)} ${captalise(user?.data?.user?.lname)}` || 'Jhon Doe'}</h1>
                     <p className="text-sm text-gray-500">
                         <span className="font-bold">Email: {user?.data?.user?.email ?? 'example@mail.com'}</span>
                     </p>
