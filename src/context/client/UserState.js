@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from './UserContext';
 import useAuthToken from '../hooks/useAuthToken';
-import { MdElectricRickshaw } from 'react-icons/md';
-
 const UserProvider = (props) => {
     const navigate = useNavigate();
     const host = process.env.REACT_APP_API_HOST || 'http://localhost:5000';
@@ -14,7 +12,6 @@ const UserProvider = (props) => {
 
     useEffect(() => {
         updateToken(authToken);
-        console.log(host, 'host');
     }, [authToken, updateToken]);
 
     const initialState = {
@@ -26,7 +23,7 @@ const UserProvider = (props) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const fetchUserData = async () => {
             try {
                 const config = {
                     method: 'get',
@@ -37,25 +34,17 @@ const UserProvider = (props) => {
                     },
                 };
 
-                const res = await axios(config);
-                setUser({
-                    ...user,
-                    data: res.data,
-                    error: null,
-                });
+                const res = await makeApiCall(config);
+                console.log(res.data, 'res.data');
             } catch (error) {
-                setUser({
-                    ...user,
-                    data: null,
-                    error: error.message || 'An error occurred',
-                });
-            }
-            finally {
+                handleApiError(error);
+            } finally {
                 setLoading(false);
             }
-        }
+        };
+
         if (authToken) {
-            fetchUser();
+            fetchUserData();
         }
     }, [authToken]);
 
@@ -122,7 +111,6 @@ const UserProvider = (props) => {
         };
 
         const data = await makeApiCall(config);
-        console.log(data, 'data');
         updateToken(data.token);
         setTimeout(() => {
             data?.success && navigate('/user/dashboard/profile', { replace: true });
@@ -173,8 +161,20 @@ const UserProvider = (props) => {
 
         };
 
-        const data = await makeApiCall(config);
-        setUser(data);
+        const token = checkTokenExpiration(authToken);
+
+        if (token.status === 200) {
+            const data = await makeApiCall(config);
+            setUser(data);
+        }
+        else if (token.status === 401 || token.status === 404) {
+            removeToken();
+            setTimeout(() => {
+                navigate('/user/login', { replace: true });
+            }, 2000);
+
+        }
+
     };
 
     const updateUser = async (formData) => {
@@ -186,12 +186,22 @@ const UserProvider = (props) => {
                 Authorization: `Bearer ${authToken}`,
                 'Content-Type': 'application/json',
             },
-
-
         };
 
-        const data = await makeApiCall(config);
-        setUser(data);
+        const token = await checkTokenExpiration(authToken);
+
+        if (token.status === 200) {
+            const data = await makeApiCall(config);
+            setUser(data);
+            showToast(data.msg, data.success ? 'success' : 'error');
+        }
+        else if (token.status === 401 || token.status === 404) {
+            removeToken();
+            setTimeout(() => {
+                navigate('/user/login', { replace: true });
+            }, 2000);
+
+        }
 
     };
 

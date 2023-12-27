@@ -9,7 +9,7 @@ const Profile = () => {
 
     useEffect(() => {
         document.title = "Hospitalo | Profile";
-
+        console.log(user, 'user profile');
     }, [user]);
 
 
