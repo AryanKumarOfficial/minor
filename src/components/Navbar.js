@@ -86,7 +86,7 @@ const LogoSectionComponent = () => {
                 <Link to={'/'} >
                     <Logo
                         fill={'rgb(7, 41, 77)'}
-                        className={'peer border-8 p-1 rounded-full scale-75 transition-all border-[#07294d] '}
+                        className={'peer h-40 w-40 border-8 p-1 rounded-full scale-75 transition-all border-[#07294d] '}
                     />
                     <h1 className='text-[#07294d] peer-hover:text-[#07291d4a]'><code lang='js'>Hospitalo</code></h1>
                 </Link>

@@ -309,7 +309,7 @@ nav.navbar ul li button:hover {
 
 /* responsive */
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 850px) {
 
     header {
         display: none;
@@ -320,22 +320,24 @@ nav.navbar ul li button:hover {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 0 auto;
     }
 
-    section.logo-section .logo {
-        margin: 0 auto;
-        text-align: center;
+    section.logo-section .logo a {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
     }
 
     section.logo-section .logo img {
-        position: relative;
-        margin: 0 auto;
-        height: 100px;
+        height: 125px;
     }
 
     section.logo-section .logo h1 {
-        font-size: 2rem;
+        font-size: auto;
         margin-left: 1rem;
         text-align: center;
         width: auto;
@@ -359,44 +361,9 @@ nav.navbar ul li button:hover {
         justify-content: center;
         flex-wrap: wrap;
         align-items: center;
-        margin-right: 0rem;
-        /* margin-right: 2rem; */
+        margin-left: 2rem;
+        animation: slideInFromRight 2s ease-in-out;
 
-    }
-
-    section.logo-section .links ul {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        flex-direction: flex-end;
-        list-style: none;
-        margin-bottom: 1rem;
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    section.logo-section .links ul li {
-        margin: 5px;
-        padding: 5px;
-        max-width: 216px;
-        border-radius: 5px;
-        text-align: center;
-        width: 12rem;
-
-        transition: all 0.3s ease-in-out;
-    }
-
-    section.logo-section .links ul li a {
-        color: #fff;
-        text-decoration: none;
-        transition: all 0.3s ease-in-out;
-        font-size: 20px;
-        padding: 2px;
-        font-weight: bold;
-    }
-
-    section.logo-section .links ul li:hover {
-        transform: scale(1.1);
     }
 
     nav.navbar {
