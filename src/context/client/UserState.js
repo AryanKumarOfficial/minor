@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from './UserContext';
 import useAuthToken from '../hooks/useAuthToken';
+import { MdElectricRickshaw } from 'react-icons/md';
 
 const UserProvider = (props) => {
     const navigate = useNavigate();
     const host = process.env.REACT_APP_API_HOST || 'http://localhost:5000';
     const authToken = localStorage.getItem('token');
-    const { saveToken: updateToken, removeToken } = useAuthToken();
+    const { saveToken: updateToken, removeToken, checkTokenExpiration } = useAuthToken();
 
     useEffect(() => {
         updateToken(authToken);
@@ -139,13 +140,27 @@ const UserProvider = (props) => {
 
         };
 
-        const data = await makeApiCall(config);
-        showToast(data.msg, data.success ? 'success' : 'error');
-        removeToken();
-        setTimeout(() => {
-            navigate('/user/login', { replace: true });
-        }, 2000);
+        const token = checkTokenExpiration(authToken);
+
+        if (token.status === 200) {
+            const data = await makeApiCall(config);
+            showToast(data.msg, data.success ? 'success' : 'error');
+            removeToken();
+            setTimeout(() => {
+                navigate('/user/login', { replace: true });
+            }, 2000);
+        }
+        else if (token.status === 401 || token.status === 404) {
+            removeToken();
+            setTimeout(() => {
+                navigate('/user/login', { replace: true });
+            }, 2000);
+
+        }
+
     };
+
+
 
     const getUser = async () => {
         const config = {
