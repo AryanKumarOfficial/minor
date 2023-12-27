@@ -1,7 +1,18 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { RiHome2Line, RiInformationLine, RiUserLine, RiLogoutBoxLine, RiMenuLine } from 'react-icons/ri';
+import { FcBriefcase } from 'react-icons/fc';
+import { MdClose } from 'react-icons/md';
+import { FaBriefcaseMedical } from 'react-icons/fa6';
+import Logo from '../../Logo';
+import AddAppointments from './AddAppointments';
 
 const UsrAppointments = () => {
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
 
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
+    };
     useEffect(() => {
 
         document.title = 'Hospitalo - Appointments';
@@ -74,7 +85,7 @@ const UsrAppointments = () => {
                                 <path d="M5 12h14M12 5l7 7-7 7"></path>
                             </svg>
                         </a>
-                        <button className="flex justify-center items-center gap-2 mx-auto my-4 text-white font-bold bg-indigo-500 border-0 py-4 px-4 focus:outline-none hover:bg-indigo-600 rounded">
+                        <button onClick={toggleModal} className="flex justify-center items-center gap-2 mx-auto my-4 text-white font-bold bg-indigo-500 border-0 py-4 px-4 focus:outline-none hover:bg-indigo-600 rounded">
                             <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-6 h-6 ml-0 font-extrabold" viewBox="0 0 24 24">
                                 {/* plus symbol */}
                                 <path d="M12 4v16m8-8H4"></path>
@@ -83,7 +94,13 @@ const UsrAppointments = () => {
                         </button>
                     </div>
                 </div>
+                {/* <AddAppointments toggleModal={toggleModal} /> */}
             </section>
+            {isModalOpen && (
+                <section id="add" className="">
+                    <AddAppointments toggleModal={toggleModal} />
+                </section>
+            )}
         </>
     );
 };
