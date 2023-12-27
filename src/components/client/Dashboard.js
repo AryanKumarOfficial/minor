@@ -1,3 +1,4 @@
+// Desc: Dashboard component for users
 import React, { useContext } from 'react'
 import Profile from './Profile'
 import UserContext from '../../context/client/UserContext';

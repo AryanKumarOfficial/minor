@@ -6,42 +6,38 @@ import Typed from "typed.js";
 
 const Profile = () => {
     const { user, loading } = useContext(UserContext);
-    const [loadingState, setLoadingState] = useState(true);// set only true when the data rendered is not undefined or null
+    const [loadingState, setLoadingState] = useState(true);
     const [error, setError] = useState(null);
-
 
     useEffect(() => {
         document.title = "Hospitalo | Profile";
-        console.log(user, 'user profile');
         document.body.classList.add('overflow-x-hidden');
+
         if (user?.data?.user) {
             setLoadingState(false);
-
-        }
-        else {
+        } else {
             setError('An error occurred');
-            setLoadingState(true);
+            setLoadingState(false);  // Set loadingState to false in case of an error
         }
 
         return () => {
             document.body.classList.remove('overflow-x-hidden');
         };
 
-    }, [user]);
-
-
-
+    }, [user?.data?.user]);
 
     if (loading || loadingState) {
         return <Loading />;
+    } else if (error) {
+        return <ErrorComponent error={error} />;
     } else {
         return <Loaded />;
-
-    };
+    }
 };
 
 const Loading = () => {
     const el = useRef(null);
+
     useEffect(() => {
         const typed = new Typed(el.current, {
             strings: ["Loading...", "Please wait..."],
@@ -50,19 +46,23 @@ const Loading = () => {
             loop: true,
             cursorChar: "",
         });
+
         return () => {
             typed.destroy();
         };
     }, []);
+
     return (
         <div className="flex justify-center items-center h-screen">
             <h1 className="text-4xl font-bold"><span ref={el} id="typer"></span></h1>
         </div>
     );
 };
+
 const Loaded = () => {
     const { user } = useContext(UserContext);
     const [edit, setEdit] = useState(false);
+
     const handleEdit = () => {
         setEdit(true);
     };
@@ -75,6 +75,7 @@ const Loaded = () => {
     const captalise = (str) => {
         return str && str?.charAt(0)?.toUpperCase() + str?.slice(1);
     };
+
     return (
         <>
             {/* create a profile component for users */}
@@ -124,5 +125,26 @@ const Loaded = () => {
         </>
     );
 }
+const ErrorComponent = ({ error }) => {
+    const el = useRef(null);
+    useEffect(() => {
+        const typed = new Typed(el.current, {
+            strings: ["Loading...", "Please wait..."],
+            typeSpeed: 100,
+            backSpeed: 100,
+            loop: true,
+            cursorChar: "",
+        });
+
+        return () => {
+            typed.destroy();
+        };
+    }, []);
+    return (
+        <div ref={el} className="flex justify-center items-center h-screen">
+            <p className="text-red-500 text-lg">{error}</p>
+        </div>
+    );
+};
 
 export default Profile;
