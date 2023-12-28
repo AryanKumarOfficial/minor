@@ -20,14 +20,14 @@ import { useSelector } from 'react-redux';
 // import Demo from './components/Demo';
 
 const App = () => {
-    const { token } = useSelector(state => state.user);
+    const { token, isAuthenticated } = useSelector(state => state.user);
     const [progress, setProgress] = useState(0);
     const [hideNav, setHideNav] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         setProgress(100);
-        if (token) {
+        if (isAuthenticated) {
             setHideNav(true);
         }
         const timer = setTimeout(() => {
@@ -54,18 +54,16 @@ const App = () => {
                 progress={progress}
                 onLoaderFinished={() => setProgress(0)}
             />
-            {!hideNav && (
+            {!isAuthenticated ? (
                 <>
                     <HeaderComponent />
                     <LogoSectionComponent />
                     <NavbarComponent />
                 </>
-            )}
-            {
-                hideNav && (
+            ) :
+                (
                     <Navbar handleLogout={handleLogout} />
-                )
-            }
+                )}
             <Routes>
                 <Route path="*" element={<NotFound />} />
                 <Route path="/" element={<Home />} />

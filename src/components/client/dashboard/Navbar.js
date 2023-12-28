@@ -1,16 +1,34 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { RiHome2Line, RiInformationLine, RiUserLine, RiLogoutBoxLine, RiMenuLine } from 'react-icons/ri';
 import { FcBriefcase } from 'react-icons/fc';
 import { MdClose } from 'react-icons/md';
 import { FaBriefcaseMedical } from 'react-icons/fa6';
 import Logo from '../../Logo';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../../Redux/slices/userSlice';
+import toast from 'react-hot-toast';
 
 const NavbarComponent = () => {
+    const { token } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        dispatch(logoutUser(token)).then((res) => {
+            if (res.payload.success) {
+                toast.success(res.payload.msg);
+                redirect('/user/login');
+            }
+            else {
+                toast.error(res.payload.msg);
+            }
+        });
     };
 
     return (
@@ -60,6 +78,7 @@ const NavbarComponent = () => {
                     </ul>
                     <button
                         className='flex flex-wrap items-center float-left text-white hover:text-gray-500 transition-colors duration-700 focus:outline-none md:flex md:justify-center md:items-center md:py-2 md:px-4 md:absolute md:right-0 md:mr-4 md:mt-0'
+                        onClick={handleLogout}
                     >
                         <RiLogoutBoxLine className='mr-1' size={20} /> Logout
                     </button>

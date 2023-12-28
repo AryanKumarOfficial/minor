@@ -12,6 +12,19 @@ export const loginUser = createAsyncThunk('user/loginUser', async (credentials) 
     return response; // this will be the action.payload
 })
 
+export const logoutUser = createAsyncThunk('user/logoutUser', async (token) => {
+    const request = await fetch('http://localhost:5000/user/logout', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    });
+    const response = await request.json();
+    return response; // this will be the action.payload
+}
+)
+
 
 const userSlice = createSlice({
     name: "user",
@@ -42,6 +55,8 @@ const userSlice = createSlice({
                 state.isAuthenticated = true;
                 state.error = null;
 
+
+
             })
             .addCase(loginUser.rejected, (state, action) => {
                 console.log(action, 'action when rejected');
@@ -61,6 +76,32 @@ const userSlice = createSlice({
                     state.error = action.error.message;
                 }
             })
+            .addCase(logoutUser.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(logoutUser.fulfilled, (state, action) => {
+                state.loading = false;
+                if (!action.payload.success) {
+                    state.error = action.payload.msg;
+                    state.user = null;
+                    state.token = null;
+                    state.isAuthenticated = false;
+                    console.log(action.payload, 'action.payload when success is false');
+                }
+                else {
+                    console.log(action.payload, 'action.payload when success is true');
+                    state.user = null;
+                    state.token = null;
+                    state.isAuthenticated = false;
+                    state.error = null;
+                }
+            })
+            .addCase(logoutUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+
     }
 },
 );
