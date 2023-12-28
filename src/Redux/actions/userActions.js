@@ -1,11 +1,23 @@
-import { INCREMENT, DECREMENT } from "./types";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+const host = 'http://localhost:5000';
+export const loginUser = createAsyncThunk('user/loginUser', async (credentials) => {
+    try {
+        const res = await fetch(`${host}/user/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(credentials),
+        });
 
-export const Deposit = (amount) => ({
-    type: INCREMENT,
-    payload: amount,
-});
+        if (!res.ok) {
+            throw new Error('Login failed');
+        }
 
-export const Withdrow = (amount) => ({
-    type: DECREMENT,
-    payload: amount,
+        const data = await res.json();
+        const { token, user } = data;
+        return { token, user };
+    } catch (error) {
+        throw error.message;
+    }
 });

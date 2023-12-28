@@ -1,10 +1,9 @@
 // create a store.js for redux
-import { configureStore } from "@reduxjs/toolkit";
-// import { createStore, applyMiddleware } from "redux";
+import { configureStore, Tuple } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from 'redux-persist/lib/storage'
-import { thunk } from "redux-thunk";
 import rootReducer from "./reducers/index";
+import { thunk } from "redux-thunk";
 
 const persistConfig = {
     key: 'root',
@@ -13,12 +12,9 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middleware = (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk);
-
-
 const store = configureStore({
     reducer: persistedReducer,
-    middleware,
+    middleware: () => new Tuple(thunk),
     devTools: process.env.NODE_ENV !== 'production',
 });
 

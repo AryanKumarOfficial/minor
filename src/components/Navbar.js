@@ -11,12 +11,9 @@ import { TiThMenu } from "react-icons/ti";
 import { MdLogout } from "react-icons/md";
 import UserContext from '../context/client/UserContext';
 import Logo from './Logo';
-import { IoIosWallet } from "react-icons/io";
-import { connect } from 'react-redux';
-import { Withdrow, Deposit } from '../Redux/actions/userActions';
 
 
-const HeaderComponent = ({ balance }) => {
+const HeaderComponent = () => {
     return (
         <header>
             {/* top section starts */}
@@ -106,7 +103,7 @@ const LogoSectionComponent = () => {
     );
 };
 
-const NavbarComponent = ({ balance }) => {
+const NavbarComponent = () => {
     const { logoutUser, token } = useContext(UserContext);
     const handleToggle = () => {
         const nav = document.querySelector(".navbar ul");
@@ -141,34 +138,19 @@ const NavbarComponent = ({ balance }) => {
                 <li><Link to="/services">Services</Link></li>
                 <li><Link to="/privacy">Privacy Policy</Link></li>
                 <li><Link to="/terms">Terms & Conditions</Link></li>
+                {
 
-                <li className='before:!border-none absolute right-0'>
-                    <button className='flex gap-2 items-center'>
-                        <IoIosWallet size={25} />
-                        <span>Amount{balance}</span>
-                    </button>
-                </li>
+                    // <li className='before:!border-none absolute right-0'>
+                    //     <button onClick={logoutUser} className='flex gap-2 items-center'>
+                    //         <MdLogout size={25} />
+                    //         <span>Logout</span>
+                    //     </button>
+                    // </li>
+                }
             </ul>
 
         </nav>
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        balance: state.user.balance
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        deposit: (amount) => dispatch(Deposit(amount)),
-        withdrow: (amount) => dispatch(Withdrow(amount))
-    }
-}
-const Header = connect(mapStateToProps)(HeaderComponent);
-const LogoSection = connect(mapStateToProps)(LogoSectionComponent);
-const Navbars = connect(mapStateToProps, mapDispatchToProps)(NavbarComponent);
-
-
-export { Header, LogoSection, Navbars };
+export { HeaderComponent, LogoSectionComponent, NavbarComponent };

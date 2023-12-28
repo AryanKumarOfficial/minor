@@ -1,11 +1,14 @@
 // userContext.js
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../Redux/reducers/userReducers';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from './UserContext';
 import useAuthToken from '../hooks/useAuthToken';
 const UserProvider = (props) => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const host = process.env.REACT_APP_API_HOST || 'http://localhost:5000';
     const authToken = localStorage.getItem('token');
@@ -113,6 +116,7 @@ const UserProvider = (props) => {
 
         const data = await makeApiCall(config);
         updateToken(data.token);
+        dispatch(loginUser(authToken, data.user));
         setTimeout(() => {
             data?.success && navigate('/user/dashboard/profile', { replace: true });
         }, 2000);

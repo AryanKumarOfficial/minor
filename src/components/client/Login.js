@@ -4,28 +4,28 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
 import toast, { ToastBar, Toaster } from 'react-hot-toast';
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
-import { useContext } from 'react';
-import UserContext from '../../context/client/UserContext';
 import useAuthToken from '../../context/hooks/useAuthToken';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../Redux/slices/userSlice';
 
-function UserLogin() {
-    const { loginUser, user, showToast } = useContext(UserContext);
-
+const UserLogin = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    // const { loginUser, user, showToast } = useContext(UserContext);
+    // states
     const [showPassword, setShowPassword] = useState(false);
     const [eyeIcon, setEyeIcon] = useState(false); // [1,2,3,4,5,6,7,8,9,10]
-    const [form, setForm] = useState({
-        email: '',
-        password: '',
-    });
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [disabled, setDisabled] = useState(true);
-    const [token, setToken] = useState(null);
-    const { checkTokenExpiration, getToken } = useAuthToken();
+    // redux states
+    const { isAuthenticated, loading, error } = useSelector(state => state.user);
 
     useEffect(() => {
         document.title = 'Hospitalo | User Login';
         if (
-            form.email.length > 0 &&
-            form.password.length >= 6
+            email.length > 0 &&
+            password.length >= 6
         ) {
             setDisabled(false);
 
@@ -37,25 +37,54 @@ function UserLogin() {
         // destroy toast after 2000
 
 
-    }, [form.email, form.password]);
+    }, [email, password]);
 
 
-
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-        if (e.target.name === 'password') {
-            setEyeIcon(e.target.value.length > 0 ? true : false);
-        }
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(form);
-        const formData = {
-            email: form.email,
-            password: form.password,
-        };
-        await loginUser(formData);
+        let credentials = { email, password };
+        dispatch(loginUser(credentials)).then((result) => {
+            if (result.payload) {
+                toast.success('Logged In successfully', {
+                    duration: 2000,
+                    position: 'top-center',
+                    style: {
+                        background: '#d2bfb2',
+                        color: '#000',
+                        border: '2px solid #000',
+                        padding: '16px',
+                        zIndex: 1,
+                    },
+                    iconTheme: {
+                        primary: '#000',
+                        secondary: '#FFFAEE',
+                    },
+                });
+                setEmail('');
+                setPassword('');
+                setTimeout(() => {
+                    navigate('/user/dashboard/profile');
+                }, 2000);
+            }
+            else {
+                toast.error('Invalid Credentials', {
+                    duration: 2000,
+                    position: 'top-center',
+                    style: {
+                        background: '#d2bfb2',
+                        color: '#000',
+                        border: '2px solid #000',
+                        padding: '16px',
+                        zIndex: 1,
+                    },
+                    iconTheme: {
+                        primary: '#000',
+                        secondary: '#FFFAEE',
+                    },
+                });
+            }
+        });
 
     }
 
@@ -69,13 +98,13 @@ function UserLogin() {
                             <HiAtSymbol className='icon-at'
                                 size={20}
                             />
-                            <input type="email" name="email" placeholder="Email" required onChange={handleChange} value={form.email} autoComplete='off' />
+                            <input type="email" name="email" placeholder="Email" required onChange={(e) => setEmail(e.target.value)} value={email} autoComplete='off' />
                         </div>
                         <div className="form-group">
                             <HiFingerPrint className='icon-at'
                                 size={20}
                             />
-                            <input type={`${showPassword ? "text" : "password"}`} name="password" placeholder="Password" required onChange={handleChange} value={form.password} autoComplete='new-password' />
+                            <input type={`${showPassword ? "text" : "password"}`} name="password" placeholder="Password" required onChange={(e) => setPassword(e.target.value)} value={password} autoComplete='new-password' />
                             {!showPassword ? <FaRegEye className='eye-icon'
                                 style={{ display: `${eyeIcon ? "block" : "none"}` }}
                                 onClick={() => setShowPassword(!showPassword)}
@@ -84,7 +113,7 @@ function UserLogin() {
                                     style={{ display: `${eyeIcon ? "block" : "none"}` }}
                                     onClick={() => setShowPassword(!showPassword)}
                                 />}
-                            <span className={`tooltip relative right-80 bottom-14 ${form.password.length >= 6 ? "!transition-all !invisible" : ""}`}>
+                            <span className={`tooltip relative right-80 bottom-14 ${password.length >= 6 ? "!transition-all !invisible" : ""}`}>
                                 <span className="tooltip-text absolute w-full bg-gray-800 rounded-lg text-rose-700 p-4 font-bold">
                                     <li>
                                         Password must be at least 6 characters
@@ -92,7 +121,8 @@ function UserLogin() {
                                 </span>
                             </span>
                         </div>
-                        <button type="submit" className="btn disabled:!cursor-not-allowed disabled:!bg-[#d2bfb2] disabled:hover:!text-white disabled:hover:!shadow-none" disabled={disabled}>Login</button>
+                        <button type="submit" className="btn disabled:!cursor-not-allowed disabled:!bg-[#d2bfb2] disabled:hover:!text-white disabled:hover:!shadow-none" disabled={disabled}>{loading ? 'Login...' : "login"}</button>
+                        {error && <p className='text-red-500 text-center'>{error}</p>}
                         <div className="logined">
                             <p>New to plateform?
                                 <Link to="/user/register">

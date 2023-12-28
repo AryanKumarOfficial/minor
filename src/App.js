@@ -18,7 +18,7 @@ import toast from 'react-hot-toast';
 import TransitionExample from './components/Trans';
 import NotFound from './components/404';
 import UsrAppointments from './components/client/dashboard/Appointments';
-import Demo from './components/Demo';
+// import Demo from './components/Demo';
 
 const App = () => {
     const { checkTokenExpiration, getToken } = useAuthToken();
@@ -61,9 +61,9 @@ const App = () => {
             />
             {!hideNav && (
                 <>
-                    <Header />
-                    <LogoSection />
-                    <Navbars />
+                    <HeaderComponent />
+                    <LogoSectionComponent />
+                    <NavbarComponent />
                 </>
             )}
             {
@@ -81,7 +81,7 @@ const App = () => {
                 <Route path="/user/dashboard/appointments" element={<><UsrAppointments /></>} />
                 <Route path="/about" element={<About />} />
                 <Route path="/effect" element={<TransitionExample />} />
-                <Route path="/demo" element={<Demo />} />
+                {/* <Route path="/demo" element={<Demo />} /> */}
             </Routes>
             <Footer />
         </>
