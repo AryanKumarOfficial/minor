@@ -3,7 +3,7 @@ import './index.css';
 import { Routes, Route, useNavigate } from "react-router-dom";
 import About from './components/About';
 import Home from './Home';
-import { HeaderComponent, LogoSectionComponent, NavbarComponent } from './components/Navbar';
+import { Header, HeaderComponent, LogoSection, LogoSectionComponent, NavbarComponent, Navbars } from './components/Navbar';
 import Footer from './components/Footer';
 import UsrReg from './components/client/Register'
 import UsrLogin from './components/client/Login'
@@ -18,6 +18,7 @@ import toast from 'react-hot-toast';
 import TransitionExample from './components/Trans';
 import NotFound from './components/404';
 import UsrAppointments from './components/client/dashboard/Appointments';
+import Demo from './components/Demo';
 
 const App = () => {
     const { checkTokenExpiration, getToken } = useAuthToken();
@@ -60,9 +61,9 @@ const App = () => {
             />
             {!hideNav && (
                 <>
-                    <HeaderComponent />
-                    <LogoSectionComponent />
-                    <NavbarComponent />
+                    <Header />
+                    <LogoSection />
+                    <Navbars />
                 </>
             )}
             {
@@ -80,6 +81,7 @@ const App = () => {
                 <Route path="/user/dashboard/appointments" element={<><UsrAppointments /></>} />
                 <Route path="/about" element={<About />} />
                 <Route path="/effect" element={<TransitionExample />} />
+                <Route path="/demo" element={<Demo />} />
             </Routes>
             <Footer />
         </>
