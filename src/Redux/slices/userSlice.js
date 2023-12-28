@@ -25,6 +25,20 @@ export const logoutUser = createAsyncThunk('user/logoutUser', async (token) => {
 }
 )
 
+export const updateUser = createAsyncThunk('user/updateUser', async (data) => {
+    const { token, formData } = data;
+    const request = await fetch('http://localhost:5000/user/update', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(formData)
+    });
+    const response = await request.json();
+    return response; // this will be the action.payload
+});
+
 
 const userSlice = createSlice({
     name: "user",
@@ -88,6 +102,7 @@ const userSlice = createSlice({
                     state.token = null;
                     state.isAuthenticated = false;
                     console.log(action.payload, 'action.payload when success is false');
+                    return;
                 }
                 else {
                     console.log(action.payload, 'action.payload when success is true');
@@ -100,6 +115,30 @@ const userSlice = createSlice({
             .addCase(logoutUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
+            })
+            .addCase(updateUser.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updateUser.fulfilled, (state, action) => {
+                state.loading = false;
+                if (!action.payload.success) {
+                    state.user = null;
+                    state.token = null;
+                    state.isAuthenticated = false;
+                    return;
+                }
+                else if (action.payload.error === 'Please enter all fields') {
+                    state.error = action.payload.error;
+                    state.isAuthenticated = false;
+                }
+                state.user = action.payload.user;
+                state.isAuthenticated = true;
+                state.error = null;
+            })
+            .addCase(updateUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message
             })
 
     }

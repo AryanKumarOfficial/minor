@@ -1,9 +1,12 @@
 // edit profile modal
 import React, { useContext, useEffect, useState } from 'react';
 import { CgClose } from "react-icons/cg";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUser } from '../../../Redux/slices/userSlice';
+import toast from 'react-hot-toast';
 const EditProfile = ({ handleClose }) => {
-    const { user } = useSelector(state => state.user);
+    const dispatch = useDispatch()
+    const { user, token } = useSelector(state => state.user);
     const captalise = (str) => {
         return str ?? str?.charAt(0)?.toUpperCase() + str?.slice(1);
     };
@@ -33,7 +36,19 @@ const EditProfile = ({ handleClose }) => {
 
 
     const handleSubmit = async (e) => {
+        const data = { token, formData }
         await e.preventDefault();
+        console.log(data, 'form data');
+        dispatch(updateUser(data)).then((res) => {
+            if (res.payload.success) {
+                handleClose();
+                toast.success(res.payload.msg);
+            }
+            else {
+                handleClose();
+                toast.error(res.payload.error);
+            }
+        })
         await handleClose();
     };
 
