@@ -1,3 +1,7 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /captcha/
+Disallow: /imemail/
+
+
+Sitemap: http://www.ekspertbudowlany.pl/sitemap.xml
