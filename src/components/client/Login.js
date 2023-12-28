@@ -33,10 +33,18 @@ const UserLogin = () => {
             setDisabled(true);
         }
 
+        if (isAuthenticated) {
+            navigate('/user/dashboard/profile');
+        }
+
         // destroy toast after 2000
+        const timer = setTimeout(() => {
+            toast.remove();
+        }
+            , 2000);
+        return () => clearTimeout(timer);
 
-
-    }, [email, password]);
+    }, [email, password, isAuthenticated]);
 
 
 
@@ -44,7 +52,7 @@ const UserLogin = () => {
         e.preventDefault();
         let credentials = { email, password };
         dispatch(loginUser(credentials)).then((result) => {
-            if (result.payload) {
+            if (result?.payload?.success) {
                 toast.success('Logged In successfully', {
                     duration: 2000,
                     position: 'top-center',

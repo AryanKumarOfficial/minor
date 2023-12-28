@@ -9,11 +9,9 @@ export const loginUser = createAsyncThunk('user/loginUser', async (credentials) 
         body: JSON.stringify(credentials)
     });
     const response = await request.json();
-    const { token, user } = response;
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
     return response; // this will be the action.payload
 })
+
 
 const userSlice = createSlice({
     name: "user",
@@ -29,18 +27,24 @@ const userSlice = createSlice({
             .addCase(loginUser.pending, (state) => {
                 state.loading = true;
                 state.error = null;
-                state.user = null;
-                state.token = null;
-                state.isAuthenticated = false;
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false;
-                state.error = null;
+                if (action.payload.success === false) {
+                    state.error = action.payload.msg;
+                    state.user = null;
+                    state.token = null;
+                    state.isAuthenticated = false;
+                    return;
+                }
                 state.user = action.payload.user;
                 state.token = action.payload.token;
                 state.isAuthenticated = true;
+                state.error = null;
+
             })
             .addCase(loginUser.rejected, (state, action) => {
+                console.log(action, 'action when rejected');
                 state.loading = false;
                 state.user = null;
                 state.token = null;
