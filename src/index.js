@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
-import { UserProvider } from './context/client/UserProvider'
 import App from './App';
 import toast from 'react-hot-toast';
 import { Provider } from 'react-redux';
@@ -30,9 +29,7 @@ const Root = () => {
       <BrowserRouter>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <UserProvider>
-              <App />
-            </UserProvider>
+            <App />
           </PersistGate>
         </Provider>
       </BrowserRouter>

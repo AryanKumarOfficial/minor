@@ -1,9 +1,9 @@
 // edit profile modal
 import React, { useContext, useEffect, useState } from 'react';
 import { CgClose } from "react-icons/cg";
-import UserContext from '../../../context/client/UserContext';
-const EditProfile = ({ handleClose, user }) => {
-    const { updateUser } = useContext(UserContext);
+import { useSelector } from 'react-redux';
+const EditProfile = ({ handleClose }) => {
+    const { user } = useSelector(state => state.user);
     const captalise = (str) => {
         return str ?? str?.charAt(0)?.toUpperCase() + str?.slice(1);
     };
@@ -34,7 +34,6 @@ const EditProfile = ({ handleClose, user }) => {
 
     const handleSubmit = async (e) => {
         await e.preventDefault();
-        await updateUser(formData);
         await handleClose();
     };
 

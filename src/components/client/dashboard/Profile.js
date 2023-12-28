@@ -1,32 +1,29 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { HiPencilAlt } from "react-icons/hi";
 import EditProfile from "./EditProfile";
-import UserContext from "../../../context/client/UserContext";
 import Typed from "typed.js";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
-    const { user, loading } = useContext(UserContext);
-    const [loadingState, setLoadingState] = useState(true);
+    const { user, loading } = useSelector(state => state.user);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         document.title = "Hospitalo | Profile";
+        console.log(user, loading, 'user, loading');
         document.body.classList.add('overflow-x-hidden');
 
-        if (user?.data?.user) {
-            setLoadingState(false);
-        } else {
-            setError('An error occurred');
-            setLoadingState(false);  // Set loadingState to false in case of an error
+        if (!user) {
+            setError('Please login to view your profile');
         }
 
         return () => {
             document.body.classList.remove('overflow-x-hidden');
         };
 
-    }, [user?.data?.user]);
+    }, [user]);
 
-    if (loading || loadingState) {
+    if (loading) {
         return <Loading />;
     } else if (error) {
         return <ErrorComponent error={error} />;
@@ -60,7 +57,7 @@ const Loading = () => {
 };
 
 const Loaded = () => {
-    const { user } = useContext(UserContext);
+    const { user } = useSelector(state => state.user);
     const [edit, setEdit] = useState(false);
 
     const handleEdit = () => {
@@ -93,18 +90,18 @@ const Loaded = () => {
                         alt="profile"
                         className="rounded-full border-4 p-1 border-blue-700 h-40 w-40"
                     />
-                    <h1 className="text-2xl font-bold">{`${captalise(user?.data?.user?.fname)} ${captalise(user?.data?.user?.lname)}` || 'Jhon Doe'}</h1>
+                    <h1 className="text-2xl font-bold">{`${captalise(user?.fname)} ${captalise(user?.lname)}` || 'Jhon Doe'}</h1>
                     <p className="text-sm text-gray-500">
-                        <span className="font-bold">Email: {user?.data?.user?.email ?? 'example@mail.com'}</span>
+                        <span className="font-bold">Email: {user?.email ?? 'example@mail.com'}</span>
                     </p>
                     <p className="text-sm text-gray-500">
-                        <span className="font-bold">Phone: {user?.data?.user?.phone ?? 'Not Available'}</span>
+                        <span className="font-bold">Phone: {user?.phone ?? 'Not Available'}</span>
                     </p>
                     <p className="text-sm text-gray-500">
-                        <span className="font-bold">Address: {user?.data?.user?.address ?? 'Not Available'}</span>
+                        <span className="font-bold">Address: {user?.address ?? 'Not Available'}</span>
                     </p>
                     <p className="text-sm text-gray-500">
-                        <span className="font-bold">Role: {user?.data?.user?.role || 'user'}</span>
+                        <span className="font-bold">Role: {user?.role || 'user'}</span>
                     </p>
                 </div>
                 <div className="flex flex-col justify-center items-center absolute top-2 right-2">
@@ -119,7 +116,7 @@ const Loaded = () => {
 
             {edit && (
                 <section id="edit" className="">
-                    <EditProfile handleClose={handleClose} user={user?.data?.user} />
+                    <EditProfile handleClose={handleClose} />
                 </section>
             )}
         </>

@@ -4,11 +4,9 @@ import { RiHome2Line, RiInformationLine, RiUserLine, RiLogoutBoxLine, RiMenuLine
 import { FcBriefcase } from 'react-icons/fc';
 import { MdClose } from 'react-icons/md';
 import { FaBriefcaseMedical } from 'react-icons/fa6';
-import UserContext from '../../../context/client/UserContext';
 import Logo from '../../Logo';
 
 const NavbarComponent = () => {
-    const { logoutUser } = useContext(UserContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -62,7 +60,6 @@ const NavbarComponent = () => {
                     </ul>
                     <button
                         className='flex flex-wrap items-center float-left text-white hover:text-gray-500 transition-colors duration-700 focus:outline-none md:flex md:justify-center md:items-center md:py-2 md:px-4 md:absolute md:right-0 md:mr-4 md:mt-0'
-                        onClick={logoutUser}
                     >
                         <RiLogoutBoxLine className='mr-1' size={20} /> Logout
                     </button>

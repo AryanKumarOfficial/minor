@@ -9,7 +9,6 @@ import { PiPhoneCallFill } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 import { TiThMenu } from "react-icons/ti";
 import { MdLogout } from "react-icons/md";
-import UserContext from '../context/client/UserContext';
 import Logo from './Logo';
 
 
@@ -104,7 +103,6 @@ const LogoSectionComponent = () => {
 };
 
 const NavbarComponent = () => {
-    const { logoutUser, token } = useContext(UserContext);
     const handleToggle = () => {
         const nav = document.querySelector(".navbar ul");
         console.log(nav);

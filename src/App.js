@@ -11,28 +11,23 @@ import UsrDashboard from './components/client/dashboard/Dashboard';
 import AuthorizeUsr from './middleware/auth';
 import UnauthorizeUsr from './middleware/unauth';
 import LoadingBar from 'react-top-loading-bar'
-import useAuthToken from './context/hooks/useAuthToken';
-import UserContext from '../src/context/client/UserContext';
 import Navbar from './components/client/dashboard/Navbar';
 import toast from 'react-hot-toast';
 import TransitionExample from './components/Trans';
 import NotFound from './components/404';
 import UsrAppointments from './components/client/dashboard/Appointments';
+import { useSelector } from 'react-redux';
 // import Demo from './components/Demo';
 
 const App = () => {
-    const { checkTokenExpiration, getToken } = useAuthToken();
-    const { showToast } = useContext(UserContext);
+    const { token } = useSelector(state => state.user);
     const [progress, setProgress] = useState(0);
     const [hideNav, setHideNav] = useState(false);
-    const [token, setToken] = useState(null);
-    const [JWT, setJWT] = useState(getToken());
     const navigate = useNavigate();
 
     useEffect(() => {
         setProgress(100);
-        setJWT(getToken());
-        if (JWT) {
+        if (token) {
             setHideNav(true);
         }
         const timer = setTimeout(() => {
@@ -43,7 +38,7 @@ const App = () => {
             clearTimeout(timer);
             setProgress(0);
         };
-    }, [JWT, token, hideNav, navigate]);
+    }, [token, hideNav, navigate]);
 
     const handleLogout = () => {
         // Perform logout logic here

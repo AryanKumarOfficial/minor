@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
 import toast, { ToastBar, Toaster } from 'react-hot-toast';
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
-import useAuthToken from '../../context/hooks/useAuthToken';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../Redux/slices/userSlice';
 

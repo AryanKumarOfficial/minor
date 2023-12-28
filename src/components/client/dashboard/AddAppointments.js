@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CgClose } from 'react-icons/cg';
-import UserContext from '../../../context/client/UserContext';
 
 const AddAppointments = ({ handleClose, user }) => {
-    const { addAppointment } = useContext(UserContext);
 
     const captalise = (str) => {
         return str ?? str?.charAt(0)?.toUpperCase() + str?.slice(1);
@@ -33,7 +31,6 @@ const AddAppointments = ({ handleClose, user }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await addAppointment(formData);
         handleClose();
     };
 

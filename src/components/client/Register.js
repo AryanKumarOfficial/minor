@@ -3,11 +3,8 @@ import './Register.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
 import toast, { ToastBar, Toaster } from 'react-hot-toast';
-import { useContext } from 'react';
-import UserContext from '../../context/client/UserContext';
 
 function UserRegistration() {
-    const { registerUser } = useContext(UserContext);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [eyeIcon, setEyeIcon] = useState(false); // [1,2,3,4,5,6,7,8,9,10]
@@ -73,7 +70,6 @@ function UserRegistration() {
             email: form.email,
             password: form.password,
         };
-        await registerUser(formData);
     }
 
     return (
