@@ -8,22 +8,22 @@ import Logo from './Logo';
 
 const Footer = () => {
     return (
-        <footer className="footer grid grid-cols-3 pt-6 justify-evenly flex-wrap">
-            <div className="flex justify-center items-center">
+        <footer className="footer flex flex-col pt-6 justify-evenly md:grid md:grid-cols-3 md:pt-6 md:justify-evenly md:flex-wrap">
+            <div className="flex flex-wrap justify-center items-center ">
                 <Link
                     to="/"
-                    className="flex flex-col items-center justify-center transition-all cursor-default"
+                    className="flex flex-wrap text-wrap flex-col items-center justify-center transition-all cursor-default"
                 >
                     <Logo
-                        className=" w-12 md:w-40 h-12 md:h-40 border-2 border-white rounded-full shadow-md outline-double outline-green-700 outline-8 cursor-pointer transition-all duration-300 hover:shadow-xl hover:outline-0"
+                        className=" w-24 md:w-40 h-24 md:h-40 border-2 border-white rounded-full shadow-md outline-double outline-green-700 outline-8 cursor-pointer transition-all duration-300 hover:shadow-xl hover:outline-0"
                         fill={'#fff'}
                     />
-                    <p className="peer-hover:text-white text-sm md:text-base transition-colors pt-4 cursor-pointer hover:text-[#af5111] duration-300">
+                    <p className="peer-hover:text-white text-sm md:text-base transition-colors pt-4 cursor-pointer hover:text-[#af5111] duration-300 text-center">
                         Connecting Patients to Care, Anytime, Anywhere.
                     </p>
                 </Link>
             </div>
-            <div className="flex flex-wrap flex-col justify-stretch items-center w-full">
+            <div className="flex flex-wrap flex-col justify-stretch px-10 md:px-0 items-start md:items-center w-full py-8 md:py-0">
                 <h5 className='text-[#af5111] text-2xl font-bold'>Quick Links</h5>
                 <ul className='my-4 flex  flex-col justify-center items-start flex-wrap gap-4'>
                     <li>
@@ -43,7 +43,7 @@ const Footer = () => {
                     </li>
                 </ul>
             </div>
-            <div className="flex flex-wrap flex-col justify-stretch items-center w-full">
+            <div className="flex flex-wrap flex-col justify-stretch items-start px-10 md:px-0 pb-8 md:pb-0 md:items-center w-full">
                 <h5 className='text-[#af5111] text-2xl font-bold'>Get in Touch</h5>
                 <ul className='my-4 flex  flex-col justify-center items-start flex-wrap gap-4'>
                     <li>

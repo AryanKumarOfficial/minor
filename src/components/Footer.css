@@ -10,8 +10,15 @@ footer.footer::before {
     left: 0px;
     right: 0px;
     bottom: 0px;
-    height: 348px;
+    height: 100%;
     width: 100%;
     z-index: -1;
     opacity: 1;
 }
+
+
+/* @media only screen and (max-width: 768px) {
+    footer.footer{
+        padding: 0px 0px 0px 0px;
+    }
+} */
