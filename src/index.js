@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { inject } from '@vercel/analytics/*';
+import { inject } from '@vercel/analytics/react';
 import { BrowserRouter } from "react-router-dom";
 import App from './App';
 import toast from 'react-hot-toast';
