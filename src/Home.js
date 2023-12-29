@@ -26,7 +26,7 @@ const Home = () => {
           </div>
         </Link>
 
-        <a href="/">
+        <Link to="/">
           <div className="box">
             <img
               src="./images/hospital.png"
@@ -35,21 +35,21 @@ const Home = () => {
             />
             <h3>Find Hospital</h3>
           </div>
-        </a>
-        <a href="/">
+        </Link>
+        <Link to="/">
           <div className="box">
             <img src="./images/bed.png" alt="" />
             <h3>Book a Bed</h3>
           </div>
-        </a>
-        <a href="/">
+        </Link>
+        <Link to="/">
           <div className="box">
             <img src="./images/appointment.png" alt="" />
             <h3>View Appointment</h3>
           </div>
-        </a>
+        </Link>
 
-        <a href="/">
+        <Link to="/">
           <div className="box">
             <img
               src="./images/app.webp"
@@ -58,9 +58,9 @@ const Home = () => {
             />
             <h3>Android App</h3>
           </div>
-        </a>
+        </Link>
 
-        <a href="/">
+        <Link to="/">
           <div className="box">
             <img
               src="./images/faq.png"
@@ -69,7 +69,7 @@ const Home = () => {
             />
             <h3>Help</h3>
           </div>
-        </a>
+        </Link>
       </div>
       <div className="admin-desk md:flex-wrap">
         <div className="flex flex-col items-center justify-center space-y-2 transition-all cursor-default">
