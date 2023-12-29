@@ -97,53 +97,57 @@ const UserLogin = () => {
 
     return (
         <>
-            <main className="usr-login">
-                <div className="login-content">
-                    <form className='login-form' onSubmit={handleSubmit} autoComplete='off'>
-                        <h1>User Login</h1>
-                        <div className="form-group">
-                            <HiAtSymbol className='icon-at'
-                                size={20}
-                            />
-                            <input type="email" name="email" placeholder="Email" required onChange={(e) => setEmail(e.target.value)} value={email} autoComplete='off' />
-                        </div>
-                        <div className="form-group">
-                            <HiFingerPrint className='icon-at'
-                                size={20}
-                            />
-                            <input type={`${showPassword ? "text" : "password"}`} name="password" placeholder="Password" required onChange={(e) => setPassword(e.target.value)} value={password} autoComplete='new-password' />
-                            {!showPassword ? <FaRegEye className='eye-icon'
+            <main
+                className="flex justify-center items-center flex-col relative overflow-hidden rounded-lg bg-cover bg-no-repeat p-12 text-center"
+                style={{
+                    minHeight: 'calc(100vh - 4rem)',
+                    backgroundImage: 'url(/images/bg-img.png)',
+                }}
+            >
+                {/* <form className='login-form flex flex-col justify-center items-center bg-transparent border shadow-md' onSubmit={handleSubmit} autoComplete='off'>
+                    <h1>User Login</h1>
+                    <div className="form-group">
+                        <HiAtSymbol className='icon-at'
+                            size={20}
+                        />
+                        <input type="email" name="email" placeholder="Email" required onChange={(e) => setEmail(e.target.value)} value={email} autoComplete='off' />
+                    </div>
+                    <div className="form-group">
+                        <HiFingerPrint className='icon-at'
+                            size={20}
+                        />
+                        <input type={`${showPassword ? "text" : "password"}`} name="password" placeholder="Password" required onChange={(e) => setPassword(e.target.value)} value={password} autoComplete='new-password' />
+                        {!showPassword ? <FaRegEye className='eye-icon'
+                            style={{ display: `${eyeIcon ? "block" : "none"}` }}
+                            onClick={() => setShowPassword(!showPassword)}
+                        /> :
+                            <FaRegEyeSlash className='eye-icon'
                                 style={{ display: `${eyeIcon ? "block" : "none"}` }}
                                 onClick={() => setShowPassword(!showPassword)}
-                            /> :
-                                <FaRegEyeSlash className='eye-icon'
-                                    style={{ display: `${eyeIcon ? "block" : "none"}` }}
-                                    onClick={() => setShowPassword(!showPassword)}
-                                />}
-                            <span className={`tooltip relative right-80 bottom-14 ${password.length >= 6 ? "!transition-all !invisible" : ""}`}>
-                                <span className="tooltip-text absolute w-full bg-gray-800 rounded-lg text-rose-700 p-4 font-bold">
-                                    <li>
-                                        Password must be at least 6 characters
-                                    </li>
-                                </span>
+                            />} */}
+                {/* <span className={`tooltip relative right-80 bottom-14 ${password.length >= 6 ? "!transition-all !invisible" : ""}`}>
+                            <span className="tooltip-text absolute w-full bg-gray-800 rounded-lg text-rose-700 p-4 font-bold">
+                                <li>
+                                    Password must be at least 6 characters
+                                </li>
                             </span>
-                        </div>
-                        <button type="submit" className="btn disabled:!cursor-not-allowed disabled:!bg-[#d2bfb2] disabled:hover:!text-white disabled:hover:!shadow-none" disabled={disabled}>{loading ? 'Login...' : "login"}</button>
-                        {error && <p className='text-red-500 text-center'>{error}</p>}
-                        <div className="logined">
-                            <p>New to plateform?
-                                <Link to="/user/register">
-                                    Register
-                                </Link>
-                            </p>
-                        </div>
-                    </form>
-                </div>
-                <div className="adm-btn">
+                        </span> */}
+                {/* </div>
+                    <button type="submit" className="btn disabled:!cursor-not-allowed disabled:!bg-[#d2bfb2] disabled:hover:!text-white disabled:hover:!shadow-none" disabled={disabled}>{loading ? 'Login...' : "login"}</button>
+                    {error && <p className='text-red-500 text-center'>{error}</p>}
+                    <div className="logined">
+                        <p>New to plateform?
+                            <Link to="/user/register">
+                                Register
+                            </Link>
+                        </p>
+                    </div>
+                </form> */}
+                {/* <div className="adm-btn">
                     <Link className='btn' to="/admin/login">
                         Hospital?
                     </Link>
-                </div>
+                </div> */}
                 <Toaster>
                     {(t) => (
                         <ToastBar
@@ -154,8 +158,8 @@ const UserLogin = () => {
                             }}
                         />
                     )}
-                </Toaster>;
-            </main>
+                </Toaster>
+            </main >
         </>
     );
 }

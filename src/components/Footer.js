@@ -8,77 +8,75 @@ import Logo from './Logo';
 
 const Footer = () => {
     return (
-        <footer className="footer">
-            <div className="wrapper">
-                <div className="logo-section">
-                    <Link
-                        to="/"
-                        className="flex flex-col items-center justify-center space-y-2 transition-all cursor-default"
-                    >
-                        <Logo
-                            className="peer border-8 p-1 border-[#fff] rounded-full w-16 h-16 hover:scale-105 transition-all hover:border-[#07294d] shadow-2xl md:w-1/2 md:mx-auto md:my-0 md:mt-10 md:mb-10 cursor-pointer outline-emerald-700 outline-double outline-8"
-                            fill={'#fff'}
-                        />
-                        <p className="peer-hover:text-white text-sm md:text-base transition-all pt-4">
-                            Connecting Patients to Care, Anytime, Anywhere.
-                        </p>
-                    </Link>
-                </div>
-                <div className="quick">
-                    <h5>Quick Links</h5>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/hospital">Find Hospital</Link>
-                        </li>
-                        <li>
-                            <Link to="/about">About Us</Link>
-                        </li>
-                        <li>
-                            <Link to="/privacy">Privacy Policy</Link>
-                        </li>
-                        <li>
-                            <Link to="/terms">Terms & Conditions</Link>
-                        </li>
-                    </ul>
-                </div>
-                <div className="contact">
-                    <h5>Get in Touch</h5>
-                    <ul>
-                        <li>
-                            <Link to="tel:+918235172505">
-                                <div className="icon">
-                                    <PiPhoneCallFill />
-                                    <span>Phone:</span>
-                                </div>
-                                <span>+918235172505</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="mailto:support@hospitalo.com">
-                                <div className="icon">
-                                    <IoIosMail />
-                                    <span>Mail:</span>
-                                </div>
-                                <span>support@hospitalo.com</span>
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link to="http://bit.ly/hospitalo">
-                                <div className="icon">
-                                    <FaLocationDot />
-                                    <span>Address:</span>
-                                </div>
-                                <span>Chankaya Boy's Hostel</span>
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
+        <footer className="footer grid grid-cols-3 pt-6 justify-evenly flex-wrap">
+            <div className="flex justify-center items-center">
+                <Link
+                    to="/"
+                    className="flex flex-col items-center justify-center transition-all cursor-default"
+                >
+                    <Logo
+                        className=" w-12 md:w-40 h-12 md:h-40 border-2 border-white rounded-full shadow-md outline-double outline-green-700 outline-8 cursor-pointer transition-all duration-300 hover:shadow-xl hover:outline-0"
+                        fill={'#fff'}
+                    />
+                    <p className="peer-hover:text-white text-sm md:text-base transition-colors pt-4 cursor-pointer hover:text-[#af5111] duration-300">
+                        Connecting Patients to Care, Anytime, Anywhere.
+                    </p>
+                </Link>
             </div>
-            <div className="copy bg-[#05224c] w-full text-center py-2">
+            <div className="flex flex-wrap flex-col justify-stretch items-center w-full">
+                <h5 className='text-[#af5111] text-2xl font-bold'>Quick Links</h5>
+                <ul className='my-4 flex  flex-col justify-center items-start flex-wrap gap-4'>
+                    <li>
+                        <Link className='transition-colors hover:text-[#af5111] duration-500' to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link className='transition-colors hover:text-[#af5111] duration-500' to="/hospital">Find Hospital</Link>
+                    </li>
+                    <li>
+                        <Link className='transition-colors hover:text-[#af5111] duration-500' to="/about">About Us</Link>
+                    </li>
+                    <li>
+                        <Link className='transition-colors hover:text-[#af5111] duration-500' to="/privacy">Privacy Policy</Link>
+                    </li>
+                    <li>
+                        <Link className='transition-colors hover:text-[#af5111] duration-500' to="/terms">Terms & Conditions</Link>
+                    </li>
+                </ul>
+            </div>
+            <div className="flex flex-wrap flex-col justify-stretch items-center w-full">
+                <h5 className='text-[#af5111] text-2xl font-bold'>Get in Touch</h5>
+                <ul className='my-4 flex  flex-col justify-center items-start flex-wrap gap-4'>
+                    <li>
+                        <Link className='group' to="tel:+918235172505">
+                            <div className="icon flex flex-wrap justify-start items-center">
+                                <PiPhoneCallFill />
+                                <span className='font-bold '>Phone:</span>
+                            </div>
+                            <span className='group-hover:text-[#af5111] transition-colors duration-500'>+918235172505</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link className='group' to="mailto:support@hospitalo.com">
+                            <div className="icon flex flex-wrap  justify-start items-center">
+                                <IoIosMail />
+                                <span className='font-bold'>Mail:</span>
+                            </div>
+                            <span className='group-hover:text-[#af5111] transition-colors duration-500'>support@hospitalo.com</span>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link className='group' to="http://bit.ly/hospitalo">
+                            <div className="icon flex flex-wrap  justify-start items-center">
+                                <FaLocationDot />
+                                <span className='font-bold'>Address:</span>
+                            </div>
+                            <span className='group-hover:text-[#af5111] transition-colors duration-500'>Chankaya Boy's Hostel</span>
+                        </Link>
+                    </li>
+                </ul>
+            </div>
+            <div className="copy bg-[#05224c] w-screen text-center py-2 m-auto">
                 <p className="text-xs md:text-sm text-white">
                     &copy; {new Date().getFullYear()} All Rights Reserved
                 </p>
