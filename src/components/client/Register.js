@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import './Register.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
-import toast, { ToastBar, Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
+import Layout from './Layout';
+import { HiAtSymbol, HiEye, HiEyeOff, HiFingerPrint } from 'react-icons/hi';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useDispatch } from 'react-redux';
 
 function UserRegistration() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const [eyeIcon, setEyeIcon] = useState(false); // [1,2,3,4,5,6,7,8,9,10]
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [confirmEyeIcon, setConfirmEyeIcon] = useState(false); // [1,2,3,4,5,6,7,8,9,10]
+    const [eyeIcon, setEyeIcon] = useState(false);
+    const [confirmEyeIcon, setConfirmEyeIcon] = useState(false);
     const [form, setForm] = useState({
         fname: '',
         lname: '',
@@ -18,7 +22,7 @@ function UserRegistration() {
         cpassword: ''
     });
     const [disabled, setDisabled] = useState(true);
-
+    const [captcha, setCaptcha] = useState('');
     useEffect(() => {
         document.title = 'Hospitalo | User Registration';
         if (
@@ -28,7 +32,8 @@ function UserRegistration() {
             form.password.length >= 6 &&
             form.cpassword.length >= 6 &&
             form.password === form.cpassword &&
-            form.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
+            form.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) &&
+            captcha.length > 0
 
         ) {
             setDisabled(false);
@@ -63,85 +68,211 @@ function UserRegistration() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(form);
-        const formData = {
-            fname: form.fname,
-            lname: form.lname,
-            email: form.email,
-            password: form.password,
-        };
+        if (captcha.length === 0) {
+            toast.error('Please verify captcha');
+            return;
+        }
+        if (captcha) {
+            const verified = await fetch(`${process.env.REACT_APP_API_URL}/user/verify-captcha`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ captcha })
+            });
+            const result = await verified.json();
+            if (!result.success) {
+                toast.error('Captcha verification failed');
+                return;
+            }
+        }
+
+        if (verified.success) {
+            // dispatch();
+        }
     }
 
     return (
         <>
-            <main className="usr-register">
-                <div className="register-content">
-                    <form className='register-form' onSubmit={handleSubmit}>
-                        <h1>User Registration</h1>
-                        <div className="form-group">
-                            <input type="text" name="fname" placeholder="First Name" required onChange={handleChange} value={form.fname} />
-                        </div>
-                        <div className="form-group">
-                            <input type="text" name="lname" placeholder="Last Name" required onChange={handleChange} value={form.lname} />
-                        </div>
-                        <div className="form-group">
-                            <input type="email" name="email" placeholder="Email" required onChange={handleChange} value={form.email} />
-                        </div>
-                        <div className="form-group">
-                            <input type={`${showPassword ? "text" : "password"}`} name="password" placeholder="Password" required onChange={handleChange} value={form.password} />
-                            {!showPassword ? <FaRegEye className='eye-icon'
-                                style={{ display: `${eyeIcon ? "block" : "none"}` }}
-                                onClick={() => setShowPassword(!showPassword)}
-                            /> :
-                                <FaRegEyeSlash className='eye-icon'
-                                    style={{ display: `${eyeIcon ? "block" : "none"}` }}
-                                    onClick={() => setShowPassword(!showPassword)}
-                                />}
-                        </div>
-                        <div className="form-group">
-                            <input type={`${showConfirmPassword ? "text" : "password"}`} name="cpassword" placeholder="Confirm Password" required onChange={handleChange} value={form.cpassword} />
-                            {!showConfirmPassword ? <FaRegEye
-                                style={{ display: `${confirmEyeIcon ? "block" : "none"}` }}
-                                className='eye-icon'
-                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            /> :
-                                <FaRegEyeSlash className='eye-icon'
-                                    style={{ display: `${confirmEyeIcon ? "block" : "none"}` }}
-                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                />}
-                            <span className="error">
-                                {form.password !== form.cpassword ? 'Password not matched' : ''}
-                            </span>
-                        </div>
-                        <button type="submit" className="btn disabled:!cursor-not-allowed disabled:!bg-[#d2bfb2] disabled:hover:!text-white disabled:hover:!shadow-none" disabled={disabled}>Register</button>
-                        <div className="registered">
-                            <p>Already have an account?
-                                <Link to="/user/login">
-                                    Login
-                                </Link>
-                            </p>
-                        </div>
-                    </form>
-                </div>
-                <div className="adm-btn">
-                    <Link className='btn' to="/admin/login">
-                        Hospital?
-                    </Link>
-                </div>
-                <Toaster>
-                    {(t) => (
-                        <ToastBar
-                            toast={t}
+            <Layout>
+                <form
+                    className="login-form flex flex-col justify-center items-center rounded p-4 "
+                    onSubmit={handleSubmit}
+                    autoComplete='off'
+                >
+                    <h1 className='text-maroon text-xl font-bold'>User Registration</h1>
+                    <div className="flex focus-within:text-maroon py-2 w-full">
+                        <HiAtSymbol
+                            className='icon-at mx-1 absolute'
                             style={{
-                                ...t.style,
-                                animation: t.visible ? 'custom-enter 1s ease' : 'custom-exit 1s ease',
+                                padding: '1px',
+                                marginTop: '4px',
+
+                            }}
+                            size={20}
+                        />
+                        <input
+                            type="text"
+                            name="fname"
+                            placeholder="First Name"
+                            required
+                            autoComplete='off'
+                            className='pl-7 pr-1 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-maroon focus-within:ring-opacity-50 w-full p-1'
+                            style={{ color: '#000' }}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="flex focus-within:text-maroon py-2 w-full">
+                        <HiAtSymbol
+                            className='icon-at mx-1 absolute'
+                            style={{
+                                padding: '1px',
+                                marginTop: '4px',
+
+                            }}
+                            size={20}
+                        />
+                        <input
+                            type="text"
+                            name="lname" placeholder="Last Name"
+                            required
+                            autoComplete='off'
+                            className='pl-7 pr-1 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-maroon focus-within:ring-opacity-50 w-full p-1'
+                            style={{ color: '#000' }}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="flex focus-within:text-maroon py-2 w-full">
+                        <HiAtSymbol
+                            className='icon-at mx-1 absolute'
+                            style={{
+                                padding: '1px',
+                                marginTop: '4px',
+
+                            }}
+                            size={20}
+                        />
+                        <input
+                            type="email"
+                            name="email" placeholder="Email"
+                            required
+                            autoComplete='off'
+                            className='pl-7 pr-1 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-maroon focus-within:ring-opacity-50 w-full p-1'
+                            style={{ color: '#000' }}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="flex focus-within:text-maroon py-2 w-full">
+                        <HiFingerPrint
+                            className='icon-at mx-1 absolute'
+                            style={{
+                                padding: '1px',
+                                marginTop: '4px',
+
+                            }}
+                            size={20}
+                        />
+                        <input
+                            type={`${showPassword ? 'text' : 'password'}`}
+                            name="password" placeholder="Password"
+                            required
+                            className='pl-7 pr-7 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-maroon focus-within:ring-opacity-50 w-full p-1'
+                            style={{ color: '#000' }}
+                            onChange={handleChange}
+                        />
+                        {eyeIcon && (showPassword ?
+                            <HiEyeOff
+                                className='mx-6 absolute right-0 cursor-pointer'
+                                style={{
+                                    padding: '1px',
+                                    marginTop: '4px',
+                                }}
+                                size={20}
+                                onMouseEnter={() => setShowPassword(true)}
+                                onMouseLeave={() => setShowPassword(false)}
+                            /> :
+                            <HiEye
+                                className='mx-6 absolute right-0 cursor-pointer'
+                                style={{
+                                    padding: '1px',
+                                    marginTop: '4px',
+                                }}
+                                size={20}
+                                onMouseEnter={() => setShowPassword(true)}
+                                onMouseLeave={() => setShowPassword(false)}
+                            />)}
+
+                    </div>
+                    <div className="flex focus-within:text-maroon py-2 w-full">
+                        <HiFingerPrint
+                            className='icon-at mx-1 absolute'
+                            style={{
+                                padding: '1px',
+                                marginTop: '4px',
+
+                            }}
+                            size={20}
+                        />
+                        <input
+                            type={`${showConfirmPassword ? 'text' : 'password'}`}
+                            name="cpassword" placeholder="Retype Your Password"
+                            required
+                            className='pl-7 pr-7 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-maroon focus-within:ring-opacity-50 w-full p-1'
+                            style={{ color: '#000' }}
+                            onChange={handleChange}
+                            onBlur={() => {
+                                if (form.password !== form.cpassword) {
+                                    toast.error('Password does not match');
+                                    setDisabled(true);
+                                }
+                                else {
+                                    setDisabled(false);
+                                }
                             }}
                         />
-                    )}
-                </Toaster>;
-            </main>
+                        {confirmEyeIcon && (showConfirmPassword ?
+                            <HiEyeOff
+                                className='mx-6 absolute right-0 cursor-pointer'
+                                style={{
+                                    padding: '1px',
+                                    marginTop: '4px',
+                                }}
+                                size={20}
+                                onMouseEnter={() => setShowConfirmPassword(true)}
+                                onMouseLeave={() => setShowConfirmPassword(false)}
+                            /> :
+                            <HiEye
+                                className='mx-6 absolute right-0 cursor-pointer'
+                                style={{
+                                    padding: '1px',
+                                    marginTop: '4px',
+                                }}
+                                size={20}
+                                onMouseEnter={() => setShowConfirmPassword(true)}
+                                onMouseLeave={() => setShowConfirmPassword(false)}
+                            />)}
+                    </div>
+                    <ReCAPTCHA
+                        sitekey={`${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`}
+                        className='w-full my-2'
+                        onChange={(value) => setCaptcha(value)}
+                    />
+                    <button
+                        type="submit"
+                        className="rounded-lg w-full bg-maroon text-white font-bold  hover:bg-opacity-80 transition-all duration-300 ease-in-out disabled:!cursor-not-allowed disabled:!bg-[#d2bfb2] disabled:hover:!text-white disabled:hover:!shadow-none"
+                        disabled={disabled}
+                    >{"Register"}</button>
+                    <div className="flex py-2 justify-center items-baseline h-full w-full cursor-pointer  text-lg">
+                        <p className='group text-maroon'>Alredy Register?
+                            <Link className='group-hover:text-light transition-colors duration-500' to="/user/login">
+                                Login Now
+                            </Link>
+                        </p>
+                    </div>
+                </form>
+            </Layout>
         </>
-    );
+    )
 }
 
 export default UserRegistration;

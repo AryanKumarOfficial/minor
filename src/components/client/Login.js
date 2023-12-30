@@ -7,6 +7,7 @@ import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../Redux/slices/userSlice';
 import ReCAPTCHA from 'react-google-recaptcha';
+import Layout from './Layout';
 
 const UserLogin = () => {
     const dispatch = useDispatch();
@@ -69,7 +70,7 @@ const UserLogin = () => {
         e.preventDefault();
         if (captchaToken) {
             verified = await verifyCaptcha(captchaToken);
-            captchaRef.current.reset();
+            captchaRef?.current?.reset();
         }
         else {
             toast.error('Please verify captcha', {
@@ -157,19 +158,12 @@ const UserLogin = () => {
 
     return (
         <>
-            <main
-                className="flex justify-center items-center flex-col relative overflow-hidden rounded-lg bg-cover bg-no-repeat p-12 text-center"
-                style={{
-                    minHeight: 'calc(100vh - 4rem)',
-                    backgroundImage: 'url(/images/bg-img.png)',
-                }}
-            >
+            <Layout>
 
                 <form
-                    className="login-form flex flex-col justify-center items-center  rounded shadow-lg p-4 backdrop-blur-[10px]"
+                    className="login-form flex flex-col justify-center items-center  rounded p-4 "
                     onSubmit={handleSubmit}
                     autoComplete='off'
-                    style={{ backgroundColor: 'rgba(255,255,255,0.07)' }}
                 >
                     <h1 className='text-maroon text-xl font-bold'>User Login</h1>
                     <div className="flex focus-within:text-maroon py-2 w-full">
@@ -217,7 +211,7 @@ const UserLogin = () => {
                         <Link to='/user/forgot-password' className='text-sm text-maroon hover:underline transition-all duration-500'>Forgot Password?</Link>
                     </div>
                     <ReCAPTCHA
-                        sitekey={`6Lfr2T8pAAAAADsGJngNctu36nb4s1DMixICafnD`}
+                        sitekey={`${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`}
                         className='my-2'
                         onChange={(token) => {
                             setCaptchaToken(token)
@@ -239,28 +233,7 @@ const UserLogin = () => {
                         </p>
                     </div>
                 </form>
-                <div className="adm-btn">
-                    <Link className='btn' to="/admin/login">
-                        Hospital?
-                    </Link>
-                </div>
-
-
-
-
-
-                <Toaster>
-                    {(t) => (
-                        <ToastBar
-                            toast={t}
-                            style={{
-                                ...t.style,
-                                animation: t.visible ? 'custom-enter 1s ease' : 'custom-exit 1s ease',
-                            }}
-                        />
-                    )}
-                </Toaster>
-            </main >
+            </Layout>
         </>
     );
 }

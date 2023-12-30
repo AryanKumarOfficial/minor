@@ -18,6 +18,7 @@ import NotFound from './components/404';
 import UsrAppointments from './components/client/dashboard/Appointments';
 import { useSelector } from 'react-redux';
 import Contact from './components/Contact';
+import Layout from './components/client/Layout';
 // import Demo from './components/Demo';
 
 const App = () => {
@@ -76,6 +77,7 @@ const App = () => {
                 <Route path="/about" element={<About />} />
                 <Route path="/effect" element={<TransitionExample />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route exact path="/layout" element={<Layout />} />
                 {/* <Route path="/demo" element={<Demo />} /> */}
             </Routes>
             <Footer />

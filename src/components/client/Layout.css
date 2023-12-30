@@ -1,0 +1,29 @@
+:root {
+    --primary-color: #1a1a1a;
+}
+
+main {
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+main>* {
+    margin: 1rem 0;
+}
+
+main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../../../public/images/bg-img.png') no-repeat center center/cover;
+    z-index: -1;
+}
