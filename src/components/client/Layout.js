@@ -1,15 +1,10 @@
 import React from "react";
 import { ToastBar, Toaster } from "react-hot-toast";
 // import './Layout.css'
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Layout = ({ children }) => {
-    const navigate = useNavigate();
 
-    const handleLogout = () => {
-        // Perform logout logic here
-        navigate("/user/login"); // Redirect to login page
-    };
 
     return (
         <>

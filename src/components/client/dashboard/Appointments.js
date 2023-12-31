@@ -1,10 +1,4 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { RiHome2Line, RiInformationLine, RiUserLine, RiLogoutBoxLine, RiMenuLine } from 'react-icons/ri';
-import { FcBriefcase } from 'react-icons/fc';
-import { MdClose } from 'react-icons/md';
-import { FaBriefcaseMedical } from 'react-icons/fa6';
-import Logo from '../../Logo';
 import AddAppointments from './AddAppointments';
 
 const UsrAppointments = () => {
@@ -80,7 +74,7 @@ const UsrAppointments = () => {
                         </table>
                     </div>
                     <div className="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
-                        <a className="text-indigo-500 inline-fleax items-center md:mb-2 lg:mb-0 hidden">Learn More
+                        <a href='/' className="text-indigo-500 inline-fleax items-center md:mb-2 lg:mb-0 hidden">Learn More
                             <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
                                 <path d="M5 12h14M12 5l7 7-7 7"></path>
                             </svg>

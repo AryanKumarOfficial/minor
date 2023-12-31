@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './Navbar.css';
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa6";
@@ -8,7 +8,6 @@ import { FaLock } from "react-icons/fa6";
 import { PiPhoneCallFill } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 import { TiThMenu } from "react-icons/ti";
-import { MdLogout } from "react-icons/md";
 import Logo from './Logo';
 
 

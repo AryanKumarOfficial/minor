@@ -1,5 +1,5 @@
 // Desc: Dashboard component for users
-import React, { useContext } from 'react'
+import React from 'react'
 import Profile from './Profile'
 
 const Dashboard = () => {

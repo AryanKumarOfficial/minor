@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { HiPencilAlt } from "react-icons/hi";
 import EditProfile from "./EditProfile";
 import Typed from "typed.js";
@@ -21,7 +21,7 @@ const Profile = () => {
             document.body.classList.remove('overflow-x-hidden');
         };
 
-    }, [user]);
+    }, [user, loading]);
 
     if (loading) {
         return <Loading />;

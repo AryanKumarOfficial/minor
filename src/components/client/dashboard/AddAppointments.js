@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CgClose } from 'react-icons/cg';
 
 const AddAppointments = ({ handleClose, user }) => {
@@ -15,7 +15,7 @@ const AddAppointments = ({ handleClose, user }) => {
         return () => {
             document.body.classList.remove('overflow-y-hidden');
         };
-    }, []);
+    }, [user]);
 
     const [formData, setFormData] = useState({
         fname: user?.fname,

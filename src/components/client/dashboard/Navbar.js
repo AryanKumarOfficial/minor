@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, redirect } from 'react-router-dom';
-import { RiHome2Line, RiInformationLine, RiUserLine, RiLogoutBoxLine, RiMenuLine } from 'react-icons/ri';
-import { FcBriefcase } from 'react-icons/fc';
+import { RiUserLine, RiLogoutBoxLine, RiMenuLine } from 'react-icons/ri';
 import { MdClose } from 'react-icons/md';
 import { FaBriefcaseMedical } from 'react-icons/fa6';
 import Logo from '../../Logo';

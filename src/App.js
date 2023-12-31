@@ -1,9 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 import { Routes, Route, useNavigate } from "react-router-dom";
 import About from './components/About';
 import Home from './Home';
-import { Header, HeaderComponent, LogoSection, LogoSectionComponent, NavbarComponent, Navbars } from './components/Navbar';
+import { HeaderComponent, LogoSectionComponent, NavbarComponent } from './components/Navbar';
 import Footer from './components/Footer';
 import UsrReg from './components/client/Register'
 import UsrLogin from './components/client/Login'
@@ -40,7 +40,7 @@ const App = () => {
             clearTimeout(timer);
             setProgress(0);
         };
-    }, [token, hideNav, navigate]);
+    }, [token, hideNav, navigate, isAuthenticated]);
 
     const handleLogout = () => {
         // Perform logout logic here

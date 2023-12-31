@@ -1,6 +1,5 @@
 // NotFound.js
 import React, { useEffect } from 'react';
-import { HiMail } from 'react-icons/hi';
 import './404.css';
 import { Link } from 'react-router-dom';
 

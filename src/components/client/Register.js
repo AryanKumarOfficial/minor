@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import Layout from './Layout';
 import { HiAtSymbol, HiEye, HiEyeOff, HiFingerPrint } from 'react-icons/hi';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../Redux/slices/userSlice';
 
 function UserRegistration() {
@@ -28,13 +28,13 @@ function UserRegistration() {
     useEffect(() => {
         document.title = 'Hospitalo | User Registration';
         if (
-            form.fname.length > 0 &&
-            form.lname.length > 0 &&
-            form.email.length > 0 &&
-            form.password.length >= 6 &&
-            form.cpassword.length >= 6 &&
-            form.password === form.cpassword &&
-            form.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) &&
+            form?.fname?.length > 0 &&
+            form?.lname?.length > 0 &&
+            form?.email?.length > 0 &&
+            form?.password?.length >= 6 &&
+            form?.cpassword?.length >= 6 &&
+            form?.password === form?.cpassword &&
+            form?.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) &&
             captcha.length > 0
 
         ) {
@@ -56,7 +56,7 @@ function UserRegistration() {
 
         }
 
-    }, [form.fname, form.lname, form.email, form.password, form.cpassword]);
+    }, [form.fname, form.lname, form.email, form.password, form.cpassword, captcha]);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -81,7 +81,7 @@ function UserRegistration() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ captcha })
+                body: JSON.stringify({ captchaToken: captcha })
             });
             const result = await verified.json();
             if (!result.success) {
@@ -92,10 +92,10 @@ function UserRegistration() {
 
         if (verified.success) {
             let credentials = {
-                fname: form.fname,
-                lname: form.lname,
-                email: form.email,
-                password: form.password
+                fname: form?.fname,
+                lname: form?.lname,
+                email: form?.email,
+                password: form?.password
             }
             dispatch(registerUser(credentials)).then((result) => {
                 // check if user is regisetered and verified, registered only but not verified, or not registered at all
@@ -206,8 +206,7 @@ function UserRegistration() {
                                     marginTop: '4px',
                                 }}
                                 size={20}
-                                onMouseEnter={() => setShowPassword(true)}
-                                onMouseLeave={() => setShowPassword(false)}
+                                onClick={() => setShowPassword(!showPassword)}
                             /> :
                             <HiEye
                                 className='mx-6 absolute right-0 cursor-pointer'
@@ -216,8 +215,7 @@ function UserRegistration() {
                                     marginTop: '4px',
                                 }}
                                 size={20}
-                                onMouseEnter={() => setShowPassword(true)}
-                                onMouseLeave={() => setShowPassword(false)}
+                                onClick={() => setShowPassword(!showPassword)}
                             />)}
 
                     </div>
@@ -256,8 +254,7 @@ function UserRegistration() {
                                     marginTop: '4px',
                                 }}
                                 size={20}
-                                onMouseEnter={() => setShowConfirmPassword(true)}
-                                onMouseLeave={() => setShowConfirmPassword(false)}
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                             /> :
                             <HiEye
                                 className='mx-6 absolute right-0 cursor-pointer'
@@ -266,8 +263,7 @@ function UserRegistration() {
                                     marginTop: '4px',
                                 }}
                                 size={20}
-                                onMouseEnter={() => setShowConfirmPassword(true)}
-                                onMouseLeave={() => setShowConfirmPassword(false)}
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                             />)}
                     </div>
                     <ReCAPTCHA
@@ -279,7 +275,9 @@ function UserRegistration() {
                         type="submit"
                         className="rounded-lg w-full bg-maroon text-white font-bold  hover:bg-opacity-80 transition-all duration-300 ease-in-out disabled:!cursor-not-allowed disabled:!bg-[#d2bfb2] disabled:hover:!text-white disabled:hover:!shadow-none"
                         disabled={disabled}
-                    >{"Register"}</button>
+                    >{
+                            loading ? "Loading..." : "Register"
+                        }</button>
                     <div className="flex py-2 justify-center items-baseline h-full w-full cursor-pointer  text-lg">
                         <p className='group text-maroon'>Alredy Register?
                             <Link className='group-hover:text-light transition-colors duration-500' to="/user/login">

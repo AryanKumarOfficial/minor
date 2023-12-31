@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Login.css';
 import { Link, redirect, useNavigate } from 'react-router-dom';
-import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
-import toast, { ToastBar, Toaster } from 'react-hot-toast';
+import toast, { } from 'react-hot-toast';
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../Redux/slices/userSlice';
@@ -16,14 +15,12 @@ const UserLogin = () => {
 
     // const { loginUser, user, showToast } = useContext(UserContext);
     // states
-    const [showPassword, setShowPassword] = useState(false);
-    const [eyeIcon, setEyeIcon] = useState(false); // [1,2,3,4,5,6,7,8,9,10]
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [disabled, setDisabled] = useState(true);
     const [captchaToken, setCaptchaToken] = useState('');
     // redux states
-    const { isAuthenticated, loading, error } = useSelector(state => state.user);
+    const { isAuthenticated, loading } = useSelector(state => state.user);
 
     useEffect(() => {
         document.title = 'Hospitalo | User Login';
@@ -51,7 +48,7 @@ const UserLogin = () => {
             , 2000);
         return () => clearTimeout(timer);
 
-    }, [email, password, isAuthenticated]);
+    }, [email, password, isAuthenticated, navigate]);
 
     const verifyCaptcha = async (captchaToken) => {
         const req = await fetch(`${process.env.REACT_APP_API_HOST}/user/verify-captcha`, {

@@ -1,5 +1,5 @@
 // edit profile modal
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CgClose } from "react-icons/cg";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../../Redux/slices/userSlice';
@@ -20,7 +20,7 @@ const EditProfile = ({ handleClose }) => {
         return () => {
             document.body.classList.remove('overflow-y-hidden');
         };
-    }, []); // Empty dependency array ensures this runs on mount and unmount only
+    }, [user]); // Empty dependency array ensures this runs on mount and unmount only
 
     const [formData, setFormData] = useState({
         fname: user.fname,

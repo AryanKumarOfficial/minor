@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +9,7 @@ const Auth = ({ children }) => {
         if (!isAuthenticated && !loading) {
             navigate('/user/login');
         }
-    }, [isAuthenticated, loading, error]);
+    }, [isAuthenticated, loading, error, navigate]);
 
     return children;
 }
