@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function About() {
+    useEffect(() => {
+        document.title = 'Hospitalo | About Us';
+    }
+        , []);
     return (
         <div className="py-16 bg-white">
             <div className="container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
@@ -13,7 +17,7 @@ function About() {
                     </div>
                     <div className="md:7/12 lg:w-6/12">
                         <h2 className="text-2xl text-gray-900 font-bold md:text-4xl">
-                           Let Hospital management Hospitalo Care you, Anytime, Anywhere.
+                            Let Hospital management Hospitalo Care you, Anytime, Anywhere.
                         </h2>
                         <p className="mt-6 text-gray-600">
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum omnis voluptatem

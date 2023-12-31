@@ -1,5 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+
+export const registerUser = createAsyncThunk('user/registerUser', async (credentials) => {
+    const request = await fetch('http://localhost:5000/user/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+    });
+    const response = await request.json();
+    return response; // this will be the action.payload
+})
+
 export const loginUser = createAsyncThunk('user/loginUser', async (credentials) => {
     const request = await fetch('http://localhost:5000/user/login', {
         method: 'POST',
@@ -38,6 +51,7 @@ export const updateUser = createAsyncThunk('user/updateUser', async (data) => {
     const response = await request.json();
     return response; // this will be the action.payload
 });
+
 
 
 const userSlice = createSlice({
@@ -140,6 +154,41 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message
             })
+            .addCase(registerUser.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(registerUser.fulfilled, (state, action) => {
+                state.loading = false;
+                if (!action.payload.success) {
+                    if (action.payload.verified) {
+                        // user is already registered and verified
+                        state.error = `User with email ${action.payload.email} already exists`;
+                        state.isAuthenticated = false;
+                        state.user = null;
+                        state.token = null;
+                    }
+                    else {
+                        // user is already registered but not verified
+                        state.error = `User with email ${action.payload.email} already exists, please verify your email`;
+                        state.isAuthenticated = false;
+                        state.user = null;
+                        state.token = null;
+                    }
+                }
+                else {
+                    // user is not registered
+                    state.error = `Please verify your email ${action.payload.email} to login`;
+                    state.isAuthenticated = false;
+                    state.user = null;
+                    state.token = null;
+                }
+            })
+            .addCase(registerUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+
 
     }
 },

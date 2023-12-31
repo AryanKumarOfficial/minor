@@ -6,10 +6,12 @@ import Layout from './Layout';
 import { HiAtSymbol, HiEye, HiEyeOff, HiFingerPrint } from 'react-icons/hi';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useDispatch } from 'react-redux';
+import { registerUser } from '../../Redux/slices/userSlice';
 
 function UserRegistration() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { error, loading } = useSelector(state => state.user);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [eyeIcon, setEyeIcon] = useState(false);
@@ -67,13 +69,14 @@ function UserRegistration() {
     }
 
     const handleSubmit = async (e) => {
+        let verified = {}
         e.preventDefault();
         if (captcha.length === 0) {
             toast.error('Please verify captcha');
             return;
         }
         if (captcha) {
-            const verified = await fetch(`${process.env.REACT_APP_API_URL}/user/verify-captcha`, {
+            verified = await fetch(`${process.env.REACT_APP_API_URL}/user/verify-captcha`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -88,7 +91,22 @@ function UserRegistration() {
         }
 
         if (verified.success) {
-            // dispatch();
+            let credentials = {
+                fname: form.fname,
+                lname: form.lname,
+                email: form.email,
+                password: form.password
+            }
+            dispatch(registerUser(credentials)).then((result) => {
+                // check if user is regisetered and verified, registered only but not verified, or not registered at all
+                if (result.payload.success) {
+                    toast.success(error);
+                    navigate('/user/login');
+                }
+                else {
+                    toast.error(error);
+                }
+            });
         }
     }
 

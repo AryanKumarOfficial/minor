@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
                         hover:-translate-y-5 active:scale-95 transition duration-500 ease-in-out transform  rounded-full bg-gradient-to-r from-primary to-maroon text-white font-semibold text-base"
                     >
                         <span
-                            class="relative text-base font-semibold text-primary dark:text-white"
+                            className="relative text-base font-semibold text-primary dark:text-white"
                         >
                             Hospital Login
                         </span
