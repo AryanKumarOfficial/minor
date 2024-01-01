@@ -25,6 +25,7 @@ function UserRegistration() {
     });
     const [disabled, setDisabled] = useState(true);
     const [captcha, setCaptcha] = useState('');
+    const captchaRef = React.useRef();
     useEffect(() => {
         document.title = 'Hospitalo | User Registration';
         if (
@@ -67,27 +68,41 @@ function UserRegistration() {
             setConfirmEyeIcon(e.target.value.length > 0 ? true : false);
         }
     }
-
+    const verifyCaptcha = async (captchaToken) => {
+        const req = await fetch(`${process.env.REACT_APP_API_HOST}/user/verify-captcha`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ captchaToken }),
+        });
+        const data = await req.json();
+        return data;
+    }
     const handleSubmit = async (e) => {
-        let verified = {}
+        let verified;
         e.preventDefault();
-        if (captcha.length === 0) {
-            toast.error('Please verify captcha');
-            return;
-        }
         if (captcha) {
-            verified = await fetch(`${process.env.REACT_APP_API_URL}/user/verify-captcha`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
+            verified = await verifyCaptcha(captcha);
+            captchaRef?.current?.reset();
+        }
+        else {
+            toast.error('Please verify captcha', {
+                duration: 2000,
+                position: 'top-center',
+                style: {
+                    background: '#d2bfb2',
+                    color: '#000',
+                    border: '2px solid #000',
+                    padding: '16px',
+                    zIndex: 1,
                 },
-                body: JSON.stringify({ captchaToken: captcha })
+                iconTheme: {
+                    primary: '#000',
+                    secondary: '#FFFAEE',
+                },
             });
-            const result = await verified.json();
-            if (!result.success) {
-                toast.error('Captcha verification failed');
-                return;
-            }
+            return;
         }
 
         if (verified.success) {
@@ -270,6 +285,8 @@ function UserRegistration() {
                         sitekey={`${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`}
                         className='w-full my-2'
                         onChange={(value) => setCaptcha(value)}
+                        onExpired={() => setCaptcha('')}
+                        ref={captchaRef}
                     />
                     <button
                         type="submit"
