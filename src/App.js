@@ -19,6 +19,7 @@ import UsrAppointments from './components/client/dashboard/Appointments';
 import { useSelector } from 'react-redux';
 import Contact from './components/Contact';
 import Layout from './components/client/Layout';
+import Verify from './components/client/Verify';
 // import Demo from './components/Demo';
 
 const App = () => {
@@ -78,6 +79,8 @@ const App = () => {
                 <Route path="/effect" element={<TransitionExample />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route exact path="/layout" element={<Layout />} />
+                {/* <Route path="/layout/:id" element={<Layout />} /> */} {/* This is for the dynamic route */}
+                <Route path="/user/verify/:token" element={<UnauthorizeUsr><Verify /></UnauthorizeUsr>} />
                 {/* <Route path="/demo" element={<Demo />} /> */}
             </Routes>
             <Footer />

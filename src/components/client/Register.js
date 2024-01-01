@@ -116,7 +116,6 @@ function UserRegistration() {
                 // check if user is regisetered and verified, registered only but not verified, or not registered at all
                 if (result.payload.success) {
                     toast.success(error);
-                    navigate('/user/login');
                 }
                 else {
                     toast.error(error);
