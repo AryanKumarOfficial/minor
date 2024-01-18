@@ -1,14 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 
-const api_port =process.env.REACT_APP_API_PORT|| `http://localhost:5000`;
+const api_port = process.env.REACT_APP_API_PORT || `http://localhost:5000`;
 
 
 export const registerUser = createAsyncThunk('user/registerUser', async (credentials) => {
     const request = await fetch(`${api_port}/user/register`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*' // this is for cors error
         },
         body: JSON.stringify(credentials)
     });
