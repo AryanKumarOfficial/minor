@@ -1,8 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 
+const api_port =process.env.REACT_APP_API_PORT|| `http://localhost:5000`;
+
+
 export const registerUser = createAsyncThunk('user/registerUser', async (credentials) => {
-    const request = await fetch('http://localhost:5000/user/register', {
+    const request = await fetch(`${api_port}/user/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -14,7 +17,7 @@ export const registerUser = createAsyncThunk('user/registerUser', async (credent
 })
 
 export const loginUser = createAsyncThunk('user/loginUser', async (credentials) => {
-    const request = await fetch('http://localhost:5000/user/login', {
+    const request = await fetch(`${api_port}/user/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -25,8 +28,9 @@ export const loginUser = createAsyncThunk('user/loginUser', async (credentials) 
     return response; // this will be the action.payload
 })
 
+
 export const logoutUser = createAsyncThunk('user/logoutUser', async (token) => {
-    const request = await fetch('http://localhost:5000/user/logout', {
+    const request = await fetch(`${api_port}/user/logout`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -40,7 +44,7 @@ export const logoutUser = createAsyncThunk('user/logoutUser', async (token) => {
 
 export const updateUser = createAsyncThunk('user/updateUser', async (data) => {
     const { token, formData } = data;
-    const request = await fetch('http://localhost:5000/user/update', {
+    const request = await fetch(`${api_port}/user/update`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
