@@ -60,7 +60,7 @@ const Home = () => {
           </div>
         </Link>
 
-        <Link to="/">
+        <Link to="/faq">
           <div className="box">
             <img
               src="./images/faq.png"
