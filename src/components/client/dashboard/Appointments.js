@@ -91,7 +91,7 @@ const UsrAppointments = () => {
                 {/* <AddAppointments toggleModal={toggleModal} /> */}
             </section>
             {isModalOpen && (
-                <section id="add" className="">
+                <section id="add" className="my-20">
                     <AddAppointments toggleModal={toggleModal} />
                 </section>
             )}

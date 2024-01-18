@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CgClose } from 'react-icons/cg';
 
-const AddAppointments = ({ handleClose, user }) => {
+const AddAppointments = ({ toggleModal, user }) => {
 
     const captalise = (str) => {
         return str ?? str?.charAt(0)?.toUpperCase() + str?.slice(1);
@@ -31,24 +31,25 @@ const AddAppointments = ({ handleClose, user }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        handleClose();
+        toggleModal();
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-500 backdrop-filter backdrop-blur-sm" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
+        <div className="fixed z-50 inset-0 flex items-center justify-center bg-opacity-50 bg-gray-500 backdrop-filter backdrop-blur-sm  overflow-y-auto" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
 
             <div
-                className="bg-white sm:w-full md:w-3/4 lg:w-1/2 xl:w-1/3 rounded-lg p-4 md:p-8 py-8 relative"
-                style={{ overflowY: "auto" }}>
-                <h2 className="text-2xl font-bold mb-4">Add Appointment</h2>
+                className="bg-white sm:w-full md:w-3/4 lg:w-1/2 xl:w-1/3 rounded-lg p-4 md:p-8 py-8 relative mt-20 z-50"
+                style={{ overflowY: "scroll" }}
+            >
+                <h2 className="text-2xl font-bold mt-4">Add Appointment</h2>
                 <div className="absolute top-4 right-4">
                     <CgClose
                         size={25}
-                        onClick={handleClose}
+                        onClick={toggleModal}
                         className="text-gray-500 font-bold hover:text-gray-700 cursor-pointer"
                     />
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} >
                     <div className="mb-4">
                         <label htmlFor="fname" className="block text-gray-700">First Name:</label>
                         <input type="text" id="fname" value={formData.fname} onChange={handleChange} className="border border-gray-300 rounded-md px-3 py-2 w-full" />
@@ -63,9 +64,49 @@ const AddAppointments = ({ handleClose, user }) => {
                         <input type="email" id="email" value={formData.email} className="border border-gray-300 rounded-md px-3 py-2 w-full read-only:bg-gray-300" readOnly />
                     </div>
 
-                    {/* <div className="mb-4">
+                    <div className="mb-4">
                         <label htmlFor="phone" className="block text-gray-700">Phone:</label>
                         <input type="tel" id="phone" value={formData.phone} onChange={handleChange} className="border border-gray-300 rounded-md px-3 py-2 w-full" />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="department" className="block text-gray-700">Department:</label>
+                        <select name="department" id="department" className='border border-gray-300 rounded-md px-3 py-2 w-full appearance-none'>
+                            <option value="default" selected>Select a Department</option>
+                            <option value="Anaesthesiology">Anaesthesiology</option>
+                            <option value="Cardiothoracic and Vascular Surgery">Cardiothoracic and Vascular Surgery</option>
+                            <option value="Dentistry" >Dentistry</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="Gastroenterology">Gastroenterology</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="Neuro Surgery">Neuro Surgery</option>
+                            <option value="Obstetrics and Gynaecology">Obstetrics and Gynaecology</option>
+                            <option value="Ophthalmology">Ophthalmology</option>
+                            <option value="Orthopaedics">Orthopaedics</option>
+                            <option value="Paediatrics">Paediatrics</option>
+                            <option value="Plastic Surgery">Plastic Surgery</option>
+                            <option value="Psychiatry">Psychiatry</option>
+                            <option value="Urology">Urology</option>
+                            <option value="Surgery">Surgery</option>
+                            <option value="Radio Diagnosis">Radio Diagnosis</option>
+                            <option value="Radiotherapy">Radiotherapy</option>
+                        </select>
+                    </div>
+                    <div className="mb-4">
+                        <label>
+                            Bed Type:
+                            <select className='border border-gray-300 rounded-md px-3 py-2 w-full appearance-none'>
+                                <option value="default" selected>Choose a Bed</option>
+                                <option value="single">Single Bed</option>
+                                <option value="double">Double Bed</option>
+                                <option value="ward">Ward</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div className="mb-4">
+
+                        <label htmlFor="date" className="block text-gray-700">Appointment Date:</label>
+                        <input type="date" id="date" value={formData.date} onChange={handleChange} className="border border-gray-300 rounded-md px-3 py-2 w-full" />
                     </div>
 
                     <div className="mb-4">
@@ -73,29 +114,6 @@ const AddAppointments = ({ handleClose, user }) => {
                         <input type="text" id="address" value={formData.address} onChange={handleChange} className="border border-gray-300 rounded-md px-3 py-2 w-full" />
                     </div>
 
-                    <div className="mb-4">
-
-                        <label htmlFor="date" className="block text-gray-700">Date:</label>
-                        <input type="date" id="date" value={formData.date} onChange={handleChange} className="border border-gray-300 rounded-md px-3 py-2 w-full" />
-                    </div>
-
-                    <div className="mb-4">
-                        <label htmlFor="time" className="block text-gray-700">Time:</label>
-                        <input type="time" id="time" value={formData.time} onChange={handleChange} className="border border-gray-300 rounded-md px-3 py-2 w-full" />
-                    </div>
-
-                    <div className="mb-4">
-                        <label htmlFor="type" className="block text-gray-700">Type:</label>
-                        <select id="type" value={formData.type} onChange={handleChange} className="border border-gray-300 rounded-md px-3 py-2 w-full">
-                            <option value="online">Online</option>
-                            <option value="offline">Offline</option>
-                        </select>
-                    </div>
-
-                    <div className="mb-4">
-                        <label htmlFor="description" className="block text-gray-700">Description:</label>
-                        <textarea id="description" value={formData.description} onChange={handleChange} className="border border-gray-300 rounded-md px-3 py-2 w-full h-20" placeholder="Enter your description" />
-                    </div> */}
 
                     <button
                         type="submit"

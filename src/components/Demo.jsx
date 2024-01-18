@@ -1,63 +1,88 @@
-// import React from "react";
-// import { connect } from "react-redux";
-// import { Withdrow, Deposit } from "../Redux/actions/userActions"; // Import your action creators
+import React, { useState } from "react";
+import "tailwindcss/tailwind.css"; // Import Tailwind CSS
 
-// const Demo = ({ balance, Withdrow, Deposit }) => {
-//   const [amount, setAmount] = React.useState(0);
+const Demo = () => {
+  const [name, setName] = useState("");
+  const [fName, setFName] = useState("");
+  const [gender, setGender] = useState("");
+  const [dob, setDob] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [selectedBedType, setSelectedBedType] = useState("single");
+  const [selectedDate, setSelectedDate] = useState("");
 
-//   const handleChange = (e) => {
-//     setAmount(e.target.value);
-//   };
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
 
-//   const handleWithdraw = () => {
-//     console.log(amount);
-//     Withdrow(10); // Pass the actual amount you want to withdraw
-//     console.log("withdraw");
-//   };
+  const handleBedTypeChange = (e) => {
+    setSelectedBedType(e.target.value);
+  };
 
-//   const handleDeposit = () => {
-//     Deposit(10); // Pass the actual amount you want to deposit
-//     console.log("deposit");
-//   };
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value);
+  };
 
-//   return (
-//     <>
-//       <section className="min-h-screen flex justify-center items-center text-3xl font-bold flex-col gap-4">
-//         <h1>Manage Account</h1>
-//         <h2>Balance: {balance}</h2>
-//         <input
-//           type="number"
-//           className="p-2 border-2 border-indigo-600 rounded-md shadow-2xl"
-//           placeholder="Enter Amount"
-//           value={amount}
-//           onChange={handleChange}
-//         />
-//         <div className="controller flex gap-4">
-//           <button
-//             onClick={handleWithdraw}
-//             className="bg-indigo-600 p-2 rounded-md text-white shadow-2xl hover:bg-indigo-700"
-//           >
-//             Withdraw
-//           </button>
-//           <button
-//             onClick={handleDeposit}
-//             className="bg-indigo-600 p-2 rounded-md text-white shadow-2xl hover:bg-indigo-700"
-//           >
-//             Deposit
-//           </button>
-//         </div>
-//       </section>
-//     </>
-//   );
-// };
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-// const mapStateToProps = (state) => ({
-//   balance: state.user.balance,
-// });
+    // Add logic here to send booking details to the server
 
-// const mapDispatchToProps = {
-//   Withdrow,
-//   Deposit,
-// };
+    // For simplicity, let's just log the details for now
+    console.log("Booking Details:", { name, selectedBedType, selectedDate });
+  };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Demo);
+  return (
+    <div className="container mx-auto mt-8 p-4 bg-gray-100 rounded-lg shadow-md">
+      <h2 className="text-2xl font-semibold mb-4">Hospital Bed Booking</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-600">
+            Name:
+          </label>
+          <input
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-600">
+            Bed Type:
+          </label>
+          <select
+            value={selectedBedType}
+            onChange={handleBedTypeChange}
+            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+          >
+            <option value="single">Single Bed</option>
+            <option value="double">Double Bed</option>
+            <option value="ward">Ward</option>
+          </select>
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-600">
+            Preferred Date:
+          </label>
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={handleDateChange}
+            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Demo;

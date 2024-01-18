@@ -20,7 +20,10 @@ import { useSelector } from 'react-redux';
 import Contact from './components/Contact';
 import Layout from './components/client/Layout';
 import Verify from './components/client/Verify';
-// import Demo from './components/Demo';
+import Privacy from './components/Privacy';
+import Terms from './components/Terms';
+import Demo from './components/Demo';
+import Faq from './components/Faq';
 
 const App = () => {
     const { token, isAuthenticated } = useSelector(state => state.user);
@@ -81,7 +84,10 @@ const App = () => {
                 <Route exact path="/layout" element={<Layout />} />
                 {/* <Route path="/layout/:id" element={<Layout />} /> */} {/* This is for the dynamic route */}
                 <Route path="/user/verify/:token" element={<UnauthorizeUsr><Verify /></UnauthorizeUsr>} />
-                {/* <Route path="/demo" element={<Demo />} /> */}
+                <Route path="/demo" element={<Demo />} />
+                <Route path='/privacy' element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/faq" element={<Faq />} />
             </Routes>
             <Footer />
         </>
