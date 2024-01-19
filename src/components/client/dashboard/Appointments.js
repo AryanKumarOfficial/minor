@@ -21,19 +21,18 @@ const UsrAppointments = () => {
                         <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Appointments</h1>
                         <p className="lg:w-2/3 mx-auto leading-relaxed text-base hidden">Banh mi cornhole echo park skateboard authentic crucifix neutra tilde lyft biodiesel artisan direct trade mumblecore 3 wolf moon twee</p>
                     </div>
-                    <div className="lg:w-2/3 w-full md:w-screen mx-auto overflow-auto md:overflow-visible md:mx-12">
+                    <div className="lg:w-2/3 w-full md:w-screen overflow-auto md:overflow-visible md:mx-auto">
                         <table className="table-auto w-full text-left whitespace-no-wrap ">
                             <thead>
                                 <tr>
                                     <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 rounded-tl rounded-bl border-r-4 border-r-white">Appointment ID</th>
+                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 border-r-4 border-r-white">Department</th>
+                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 border-r-4 border-r-white">Bed Type</th>
                                     <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 border-r-4 border-r-white">Appointment Date</th>
                                     <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 border-r-4 border-r-white">Appointment Time</th>
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 border-r-4 border-r-white">Appointment Status</th>
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 border-r-4 border-r-white">Appointment Type</th>
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 border-r-4 border-r-white">Appointment Description</th>
+                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 border-r-4 border-r-white">Phone</th>
                                     <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 border-r-4 border-r-white">Appointment Created At</th>
                                     <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 border-r-4 border-r-white">Appointment Updated At</th>
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 border-r-4 border-r-white">Appointment Deleted At</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,29 +45,6 @@ const UsrAppointments = () => {
                                     <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>Appointment Description</td>
                                     <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>2021-09-09 12:00:00</td>
                                     <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>2021-09-09 12:00:00</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>NULL</td>
-                                </tr>
-                                <tr>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white border-l-4 border-l-white'>1</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>2021-09-09</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>12:00:00</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>Active</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>Online</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>Appointment Description</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>2021-09-09 12:00:00</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>2021-09-09 12:00:00</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>NULL</td>
-                                </tr>
-                                <tr>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white border-l-4 border-l-white'>1</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>2021-09-09</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>12:00:00</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>Active</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>Online</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>Appointment Description</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>2021-09-09 12:00:00</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>2021-09-09 12:00:00</td>
-                                    <td className='px-4 py-3 border-r-4 border-r-white border-b-4 border-b-white'>NULL</td>
                                 </tr>
                             </tbody>
                         </table>
