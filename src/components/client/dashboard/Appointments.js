@@ -45,7 +45,7 @@ const UsrAppointments = () => {
                     </div>
 
                     <div className="lg:w-2/3 w-full md:w-screen overflow-auto md:overflow-visible md:mx-auto">
-                        <table className="table-auto w-full text-left whitespace-no-wrap ">
+                        {appointments.length > 0 && <table className="table-auto w-full text-left whitespace-no-wrap ">
                             <thead>
                                 <tr>
                                     <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-300 rounded-tl rounded-bl border-r-4 border-r-white">Appointment ID</th>
@@ -76,7 +76,13 @@ const UsrAppointments = () => {
                                 })}
 
                             </tbody>
-                        </table>
+                        </table>}
+
+                        {appointments.length === 0 && <div className="flex flex-col text-center w-full mb-20">
+                            <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">No Appointments Found</h1>
+                            <p className="lg:w-2/3 mx-auto leading-relaxed text-base">You have not booked any appointments yet.</p>
+                        </div>}
+
                     </div>
 
                 </div>
