@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import AddAppointments from './AddAppointments';
+import { useSelector } from 'react-redux';
 
 const UsrAppointments = () => {
     const [isModalOpen, setIsModalOpen] = React.useState(false);
-
+    const { user } = useSelector(state => state.user);
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
+        document.title = 'Hospitalo - Appointments'
     };
     useEffect(() => {
 
@@ -68,7 +70,7 @@ const UsrAppointments = () => {
             </section>
             {isModalOpen && (
                 <section id="add" className="my-20">
-                    <AddAppointments toggleModal={toggleModal} />
+                    <AddAppointments toggleModal={toggleModal} user={user} />
                 </section>
             )}
         </>

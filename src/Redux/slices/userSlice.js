@@ -57,6 +57,19 @@ export const updateUser = createAsyncThunk('user/updateUser', async (data) => {
     return response; // this will be the action.payload
 });
 
+// appointment related
+
+export const AddAppointment = createAsyncThunk('user/AddAppointment', async (data) => {
+    const req = await fetch(`${api_port}/appointment/add`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    const res = await req.json();
+    return res;
+})
 
 
 const userSlice = createSlice({
@@ -66,7 +79,8 @@ const userSlice = createSlice({
         loading: false,
         error: null,
         token: null,
-        isAuthenticated: false
+        isAuthenticated: false,
+        message: null,
     },
     extraReducers: (builder) => {
         builder
@@ -193,10 +207,24 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message;
             })
-
-
-    }
-},
-);
+            .addCase(AddAppointment.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(AddAppointment.fulfilled, (state, action) => {
+                state.loading = false;
+                if (!action.payload.success) {
+                    state.error = action.payload?.error;
+                    return;
+                }
+                state.error = null;
+                state.message = action.payload?.message;
+            })
+            .addCase(AddAppointment.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+    },
+});
 
 export default userSlice.reducer;
