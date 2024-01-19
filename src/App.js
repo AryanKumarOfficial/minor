@@ -77,7 +77,7 @@ const App = () => {
                 <Route path="/user/register" element={<UnauthorizeUsr><UsrReg /></UnauthorizeUsr>} />
                 <Route path="/user/login" element={<UnauthorizeUsr><UsrLogin /></UnauthorizeUsr>} />
                 <Route path="/user/dashboard/profile" element={<AuthorizeUsr><UsrDashboard /></AuthorizeUsr>} />
-                <Route path="/user/dashboard/appointments" element={<><UsrAppointments /></>} />
+                <Route path="/user/dashboard/appointments" element={<UnauthorizeUsr><UsrAppointments /></UnauthorizeUsr>} />
                 <Route path="/about" element={<About />} />
                 <Route path="/effect" element={<TransitionExample />} />
                 <Route path="/contact" element={<Contact />} />
