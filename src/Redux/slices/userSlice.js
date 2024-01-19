@@ -71,6 +71,19 @@ export const AddAppointment = createAsyncThunk('user/AddAppointment', async (dat
     return res;
 })
 
+export const fetchAppointments = createAsyncThunk('user/fetchAppointments', async (data) => {
+    const req = await fetch(`${api_port}/appointment/fetch`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+
+    })
+    const res = await req.json();
+    return res;
+});
+
 
 const userSlice = createSlice({
     name: "user",
@@ -81,6 +94,7 @@ const userSlice = createSlice({
         token: null,
         isAuthenticated: false,
         message: null,
+        appointments: [],
     },
     extraReducers: (builder) => {
         builder
@@ -143,6 +157,7 @@ const userSlice = createSlice({
                     state.token = null;
                     state.isAuthenticated = false;
                     state.error = null;
+                    state.appointments = [];
                 }
             })
             .addCase(logoutUser.rejected, (state, action) => {
@@ -221,6 +236,23 @@ const userSlice = createSlice({
                 state.message = action.payload?.message;
             })
             .addCase(AddAppointment.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+            .addCase(fetchAppointments.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchAppointments.fulfilled, (state, action) => {
+                state.loading = false;
+                if (!action.payload.success) {
+                    state.error = action.payload?.error;
+                    return;
+                }
+                state.error = null;
+                state.appointments = action.payload?.appointments;
+            })
+            .addCase(fetchAppointments.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             })
