@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import './Register.css';
-import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import Layout from './Layout';
 import { HiAtSymbol, HiEye, HiEyeOff, HiFingerPrint } from 'react-icons/hi';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, redirect, useNavigate } from 'react-router-dom';
 import { registerUser } from '../../Redux/slices/userSlice';
+import Layout from './Layout';
+import './Register.css';
 
 function UserRegistration() {
     const dispatch = useDispatch();
@@ -24,8 +23,6 @@ function UserRegistration() {
         cpassword: ''
     });
     const [disabled, setDisabled] = useState(true);
-    const [captcha, setCaptcha] = useState('');
-    const captchaRef = React.useRef();
     useEffect(() => {
         document.title = 'Hospitalo | User Registration';
         if (
@@ -35,8 +32,7 @@ function UserRegistration() {
             form?.password?.length >= 6 &&
             form?.cpassword?.length >= 6 &&
             form?.password === form?.cpassword &&
-            form?.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) &&
-            captcha.length > 0
+            form?.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
 
         ) {
             setDisabled(false);
@@ -57,7 +53,7 @@ function UserRegistration() {
 
         }
 
-    }, [form.fname, form.lname, form.email, form.password, form.cpassword, captcha]);
+    }, [form.fname, form.lname, form.email, form.password, form.cpassword]);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -68,44 +64,10 @@ function UserRegistration() {
             setConfirmEyeIcon(e.target.value.length > 0 ? true : false);
         }
     }
-    const verifyCaptcha = async (captchaToken) => {
-        const req = await fetch(`${process.env.REACT_APP_API_HOST}/user/verify-captcha`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ captchaToken }),
-        });
-        const data = await req.json();
-        return data;
-    }
     const handleSubmit = async (e) => {
-        let verified;
         e.preventDefault();
-        if (captcha) {
-            verified = await verifyCaptcha(captcha);
-            captchaRef?.current?.reset();
-        }
-        else {
-            toast.error('Please verify captcha', {
-                duration: 2000,
-                position: 'top-center',
-                style: {
-                    background: '#d2bfb2',
-                    color: '#000',
-                    border: '2px solid #000',
-                    padding: '16px',
-                    zIndex: 1,
-                },
-                iconTheme: {
-                    primary: '#000',
-                    secondary: '#FFFAEE',
-                },
-            });
-            return;
-        }
+        try {
 
-        if (verified.success) {
             let credentials = {
                 fname: form?.fname,
                 lname: form?.lname,
@@ -114,13 +76,51 @@ function UserRegistration() {
             }
             dispatch(registerUser(credentials)).then((result) => {
                 // check if user is regisetered and verified, registered only but not verified, or not registered at all
-                if (result.payload.success) {
-                    toast.success(error);
+                console.log(result, 'result');
+                if (result?.payload?.success) {
+                    toast.success(error, {
+                        duration: 2000,
+                        position: 'top-center',
+                        style: {
+                            background: '#d2bfb2',
+                            color: '#000',
+                            border: '2px solid #000',
+                            padding: '16px',
+                            zIndex: 1,
+                            width: "fit-content",
+                            maxWidth: "100vw"
+                        },
+                        iconTheme: {
+                            primary: '#000',
+                            secondary: '#FFFAEE',
+                        },
+                    });
+                    setTimeout(() => {
+                        redirect('/user/login');
+                    }, 2000);
                 }
                 else {
-                    toast.error(error);
+                    toast.error(error, {
+                        duration: 2000,
+                        position: 'top-center',
+                        style: {
+                            background: '#d2bfb2',
+                            color: '#000',
+                            border: '2px solid #000',
+                            padding: '16px',
+                            zIndex: 1,
+                            width: "fit-content",
+                            maxWidth: "100vw"
+                        },
+                        iconTheme: {
+                            primary: '#000',
+                            secondary: '#FFFAEE',
+                        },
+                    });
                 }
             });
+        } catch (error) {
+            toast.error(error.message);
         }
     }
 
@@ -280,13 +280,6 @@ function UserRegistration() {
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                             />)}
                     </div>
-                    <ReCAPTCHA
-                        sitekey={`${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`}
-                        className='w-full my-2'
-                        onChange={(value) => setCaptcha(value)}
-                        onExpired={() => setCaptcha('')}
-                        ref={captchaRef}
-                    />
                     <button
                         type="submit"
                         className="rounded-lg w-full bg-maroon text-white font-bold  hover:bg-opacity-80 transition-all duration-300 ease-in-out disabled:!cursor-not-allowed disabled:!bg-[#d2bfb2] disabled:hover:!text-white disabled:hover:!shadow-none"
