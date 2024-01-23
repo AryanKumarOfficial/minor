@@ -24,6 +24,7 @@ import Privacy from './components/Privacy';
 import Terms from './components/Terms';
 import Demo from './components/Demo';
 import Faq from './components/Faq';
+import HospitalLogin from './components/hospital/Login';
 
 const App = () => {
     const { token, isAuthenticated } = useSelector(state => state.user);
@@ -88,6 +89,7 @@ const App = () => {
                 <Route path='/privacy' element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/faq" element={<Faq />} />
+                <Route path ='/hospital/login' element={<UnauthorizeUsr><HospitalLogin /></UnauthorizeUsr>} />
             </Routes>
             <Footer />
         </>
