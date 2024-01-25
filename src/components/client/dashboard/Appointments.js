@@ -16,9 +16,12 @@ const UsrAppointments = () => {
     }, []);
 
     useEffect(() => {
-        dispatch(fetchAppointments(user?._id));
+        console.log(user?._id, 'user id');
+        dispatch(fetchAppointments({ id: user?._id }));
         console.log(appointments, 'appointments');
-    }, [toggleModal]);
+
+
+    }, []);
 
     return (
         <>
