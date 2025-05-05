@@ -39,7 +39,8 @@ This is a minor project developed for the 5th semester of Computer Science Engin
 
 ## Contributors
 - [Aditya Singh](https://github.com/adity3902)
-- [Aryan Kumar](https://github.com/aryan-ji)
+- [Aryan Kumar](https://github.com/aryankumarofficial)
+- [Satyam Singh] (https://github.com/satyam-sinngh)
 
 
 
