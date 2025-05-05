@@ -38,7 +38,7 @@ This is a minor project developed for the 5th semester of Computer Science Engin
 3. Navigate through different sections like appointment booking, doctor dashboard, admin dashboard, etc.
 
 ## Contributors
-- [Aditya Singh](https://github.com/adity3902)
+- [Aditya Singh](https://github.com/aditya-singhOfficial)
 - [Aryan Kumar](https://github.com/aryankumarofficial)
 - [Satyam Singh](https://github.com/satyam-sinngh)
 
